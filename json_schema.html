@@ -329,6 +329,147 @@
             padding: 40px 20px;
             font-size: 14px;
         }
+
+        /* media_card / icon_card */
+        .media-card,
+        .icon-card {
+            display: flex;
+            gap: 12px;
+            padding: 12px;
+            border: 2px solid #000;
+            border-radius: 8px;
+            background: #fff;
+            box-shadow: 3px 3px 0 #000;
+            box-sizing: border-box;
+        }
+
+        .media-card {
+            align-items: flex-start;
+        }
+
+        .icon-card {
+            align-items: center;
+        }
+
+        .media-card-img,
+        .icon-card-icon {
+            flex-shrink: 0;
+            border: 2px solid #000;
+            border-radius: 6px;
+            object-fit: cover;
+            background: #f5f5f5;
+        }
+
+        .media-card-img {
+            width: 88px;
+            height: 88px;
+        }
+
+        .icon-card-icon {
+            width: 52px;
+            height: 52px;
+        }
+
+        .media-card-img-placeholder,
+        .icon-card-icon-placeholder {
+            display: block;
+        }
+
+        .media-card-body,
+        .icon-card-body {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .media-card-title,
+        .icon-card-label {
+            font-size: 15px;
+            font-weight: 700;
+            color: #222;
+            margin-bottom: 4px;
+        }
+
+        .icon-card-label {
+            font-size: 14px;
+            margin-bottom: 0;
+        }
+
+        .media-card-lines {
+            font-size: 12px;
+            color: #666;
+            line-height: 1.5;
+        }
+
+        .media-card-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px;
+            margin: 6px 0;
+        }
+
+        .media-card-tag {
+            font-size: 11px;
+            padding: 2px 8px;
+            background: #fff3e0;
+            border: 1px solid #ffb74d;
+            border-radius: 4px;
+            color: #e65100;
+        }
+
+        .media-card-highlight {
+            font-size: 13px;
+            color: #e84b3a;
+            font-weight: 600;
+            margin-top: 4px;
+        }
+
+        .media-card-btns {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 8px;
+        }
+
+        .icon-card-action {
+            flex-shrink: 0;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 8px 14px;
+            font-size: 13px;
+            font-weight: 700;
+            background: #f5b5a8;
+            color: #000;
+            border: 2px solid #000;
+            box-shadow: 2px 2px 0 #000;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+
+        .icon-card-action:active {
+            transform: translate(1px, 1px);
+            box-shadow: 1px 1px 0 #000;
+        }
+
+        .icon-card-btn-wrap {
+            flex-shrink: 0;
+        }
+
+        .media-card-btns .item-button,
+        .icon-card-btn-wrap .item-button {
+            padding: 6px 12px;
+            font-size: 12px;
+            border-width: 2px;
+            box-shadow: 2px 2px 0 #000;
+        }
+
+        .media-card-btns .btn-icon,
+        .icon-card-btn-wrap .btn-icon,
+        .media-card-btns .btn-icon-placeholder,
+        .icon-card-btn-wrap .btn-icon-placeholder {
+            width: 14px;
+            height: 14px;
+        }
     </style>
 </head>
 
@@ -337,40 +478,39 @@
     <div class="editor-container">
         <h3 style="margin-top: 0;">输入 AI 吐出的 JSON</h3>
         <textarea id="jsonInput">
-{
-  "widget": "tool_bar",
-  "widget_id": "tool_bar",
-  "place_id": "841",
-  "user_id": "493354710498488320",
-  "blocks": [
-    {
-      "block": "carousel",
-      "items": [
-        {
-          "item": "button",
-          "label": "预约停车位",
-          "props": { "style": "normal" },
-          "icon": "https://robot-vr-public.bj.bcebos.com/aibeeclaw/images/20260608_125219_onp2.png",
-          "action": { "type": "open_popup", "popup_id": "parking_reverse" }
-        },
-        {
-          "item": "button",
-          "label": "预定餐厅",
-          "props": { "style": "normal" },
-          "icon": "https://robot-vr-public.bj.bcebos.com/aibeeclaw/images/20260608_125219_onp2.png",
-          "action": { "type": "send_msg", "msg": "我要预定餐厅" }
-        },
-        {
-          "item": "button",
-          "label": "投诉建议",
-          "props": { "style": "normal" },
-          "icon": "https://robot-vr-public.bj.bcebos.com/aibeeclaw/images/20260608_125219_onp2.png",
-          "action": { "type": "open_popup", "popup_id": "complaint_feedback" }
-        }
-      ]
-    }
-  ]
-}
+            {
+                "widget": "tool_bar",
+                "widget_id": "tool_bar",
+                "blocks": [
+                  {
+                    "block": "carousel",
+                    "items": [
+                      {
+                        "item": "button",
+                        "label": "预约停车位",
+                        "props": { "style": "normal" },
+                        "icon": "https://robot-vr-public.bj.bcebos.com/aibeeclaw/images/20260608_125219_onp2.png",
+                        "action": { "type": "open_popup", "popup_id": "parking_reserve" }
+                      },
+                      {
+                        "item": "button",
+                        "label": "预定餐厅",
+                        "props": { "style": "normal" },
+                        "icon": "https://robot-vr-public.bj.bcebos.com/aibeeclaw/images/20260608_125219_onp2.png",
+                        "action": { "type": "send_msg", "msg": "我要预定餐厅" }
+                      },
+                      {
+                        "item": "button",
+                        "label": "投诉建议",
+                        "props": { "style": "normal" },
+                        "icon": "https://robot-vr-public.bj.bcebos.com/aibeeclaw/images/20260608_125219_onp2.png",
+                        "action": { "type": "open_popup", "popup_id": "complaint_feedback" }
+                      }
+                    ]
+                  }
+                ]
+              }
+              
         </textarea>
     </div>
 
@@ -410,6 +550,20 @@
             return item.props || {};
         }
 
+        function getItemProp(item, key) {
+            const props = getButtonProps(item);
+            if (item[key] !== undefined && item[key] !== null && item[key] !== '') return item[key];
+            return props[key];
+        }
+
+        function normalizeButtonItem(btn, fallbackLabel) {
+            if (!btn || typeof btn !== 'object') {
+                return { item: 'button', label: fallbackLabel || '按钮', props: { style: 'secondary' } };
+            }
+            if (btn.item === 'button') return btn;
+            return { item: 'button', label: btn.label || fallbackLabel || '按钮', ...btn };
+        }
+
         function getButtonStyle(item, blockType) {
             const props = getButtonProps(item);
             const styleKey = props.style;
@@ -432,13 +586,18 @@
 
         function getButtonIcon(item) {
             const props = getButtonProps(item);
-            return item.icon || props.icon || props.image || '';
+            return item.icon || props.icon || '';
+        }
+
+        function getButtonImage(item) {
+            const props = getButtonProps(item);
+            return item.image || props.image || '';
         }
 
         function getButtonAttrs(item, isSubmit) {
             const attrs = [];
             const actionType = item.action && item.action.type;
-            if (isSubmit && actionType !== 'open_popup') attrs.push('data-action="close"');
+            if (isSubmit && actionType !== 'open_popup' && actionType !== 'jump') attrs.push('data-action="close"');
             if (actionType) {
                 attrs.push(`data-action-type="${escapeHtml(actionType)}"`);
                 if (item.action.popup_id) {
@@ -446,6 +605,9 @@
                 }
                 if (item.action.msg) {
                     attrs.push(`data-action-msg="${escapeHtml(item.action.msg)}"`);
+                }
+                if (item.action.url) {
+                    attrs.push(`data-action-url="${escapeHtml(item.action.url)}"`);
                 }
             }
             return attrs.length ? ' ' + attrs.join(' ') : '';
@@ -470,12 +632,12 @@
             const style = getButtonStyle(item, blockType);
             const widthStyle = getButtonWidthStyle(props, blockType);
             const label = escapeHtml(item.label || '按钮');
-            const icon = getButtonIcon(item);
             const actionAttrs = getButtonAttrs(item, isSubmit);
 
             if (style === 'image') {
-                const inner = icon
-                    ? `<img class="btn-image-full" src="${escapeHtml(icon)}" alt="${label}">`
+                const image = getButtonImage(item);
+                const inner = image
+                    ? `<img class="btn-image-full" src="${escapeHtml(image)}" alt="${label}">`
                     : `<span class="btn-image-placeholder">${label}</span>`;
                 return `<div class="item-button btn-image" style="${widthStyle}" data-style="image"${actionAttrs}>${inner}</div>`;
             }
@@ -495,8 +657,66 @@
             return `<div class="${wrapper}"><div class="${rowClass}">${buttonHtml}</div></div>`;
         }
 
+        function renderMediaCard(item) {
+            const image = getItemProp(item, 'image');
+            const title = getItemProp(item, 'title');
+            const lines = getItemProp(item, 'lines') || getItemProp(item, 'texts') || [];
+            const tags = getItemProp(item, 'tags') || [];
+            const highlight = getItemProp(item, 'highlight');
+            const buttons = getItemProp(item, 'buttons') || [];
+
+            let html = `<div class="media-card item-row">`;
+            html += image
+                ? `<img class="media-card-img" src="${escapeHtml(image)}" alt="">`
+                : `<div class="media-card-img media-card-img-placeholder"></div>`;
+            html += `<div class="media-card-body">`;
+            if (title) html += `<div class="media-card-title">${escapeHtml(title)}</div>`;
+            if (Array.isArray(lines) && lines.length) {
+                html += `<div class="media-card-lines">${lines.map(line => `<div>${escapeHtml(line)}</div>`).join('')}</div>`;
+            }
+            if (Array.isArray(tags) && tags.length) {
+                html += `<div class="media-card-tags">${tags.map(tag => `<span class="media-card-tag">${escapeHtml(tag)}</span>`).join('')}</div>`;
+            }
+            if (highlight) html += `<div class="media-card-highlight">${escapeHtml(highlight)}</div>`;
+            if (Array.isArray(buttons) && buttons.length) {
+                html += `<div class="media-card-btns">`;
+                buttons.forEach(btn => {
+                    html += renderButton(normalizeButtonItem(btn, '查看'), null, false);
+                });
+                html += `</div>`;
+            }
+            html += `</div></div>`;
+            return html;
+        }
+
+        function renderIconCard(item) {
+            const icon = getItemProp(item, 'icon') || getItemProp(item, 'image');
+            const label = getItemProp(item, 'label');
+            const highlight = getItemProp(item, 'highlight');
+            const props = getButtonProps(item);
+            const action = item.action || props.action;
+            const actionAttrs = action ? getButtonAttrs({ action }, false) : '';
+
+            let html = `<div class="icon-card item-row">`;
+            html += icon
+                ? `<img class="icon-card-icon" src="${escapeHtml(icon)}" alt="">`
+                : `<div class="icon-card-icon icon-card-icon-placeholder"></div>`;
+            html += `<div class="icon-card-body">`;
+            if (label) html += `<div class="icon-card-label">${escapeHtml(label)}</div>`;
+            html += `</div>`;
+            if (props.button) {
+                html += `<div class="icon-card-btn-wrap">${renderButton(normalizeButtonItem(props.button, 'GO'), null, false)}</div>`;
+            } else if (highlight) {
+                html += `<div class="icon-card-action"${actionAttrs}>${escapeHtml(highlight)}</div>`;
+            }
+            html += `</div>`;
+            return html;
+        }
+
         function renderFormItem(item) {
             if (item.item === 'button') return renderButtonRow(item, null);
+            if (item.item === 'media_card') return renderMediaCard(item);
+            if (item.item === 'icon_card') return renderIconCard(item);
 
             let html = `<div class="item-row">`;
             if (item.label && item.item !== 'button') {
@@ -666,13 +886,27 @@
             app.innerHTML = `<div style="text-align:center;color:#999;padding:40px 20px;">弹框已关闭</div>`;
         }
 
+        function handleJump(url) {
+            if (!url || !/^https?:\/\//i.test(url)) {
+                console.warn('[jump] invalid url:', url);
+                return;
+            }
+            window.open(url, '_blank', 'noopener,noreferrer');
+        }
+
         function handleAppClick(e) {
             if (e.target.closest('[data-action="close"]')) {
                 closePopup();
                 return;
             }
 
-            const popupBtn = e.target.closest('.item-button[data-action-type="open_popup"]');
+            const jumpBtn = e.target.closest('[data-action-type="jump"]');
+            if (jumpBtn && jumpBtn.dataset.actionUrl) {
+                handleJump(jumpBtn.dataset.actionUrl);
+                return;
+            }
+
+            const popupBtn = e.target.closest('[data-action-type="open_popup"]');
             if (popupBtn && popupBtn.dataset.popupId) {
                 handleOpenPopup(popupBtn.dataset.popupId);
                 return;

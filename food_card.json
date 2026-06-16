@@ -1,0 +1,58 @@
+{
+    "widget": "card",
+    "widget_id": "card",
+    "blocks": [
+      {
+        "block": "list",
+        "items": [
+          {
+            "item": "media_card",
+            "image": "https://robot-vr-public.bj.bcebos.com/aibeeclaw/images/20260608_125219_onp2.png",
+            "title": "外婆家（朝阳大悦城店）",
+            "lines": ["江浙菜 · 人均 ¥68", "朝阳大悦城 7F · 营业至 22:00"],
+            "tags": ["必吃榜", "可预约"],
+            "highlight": "限时 8.5 折"
+          }
+        ]
+      },
+      {
+        "block": "carousel",
+        "items": [
+          {
+            "item": "button",
+            "label": "去预约",
+            "props": { "style": "normal" },
+            "icon": "https://robot-vr-public.bj.bcebos.com/aibeeclaw/images/20260608_125219_onp2.png",
+            "action": { "type": "jump", "url": "https://www.baidu.com" }
+          },
+          {
+            "item": "button",
+            "label": "导航",
+            "props": { "style": "normal" },
+            "icon": "https://robot-vr-public.bj.bcebos.com/aibeeclaw/images/20260608_125219_onp2.png",
+            "action": { "type": "open_popup", "popup_id": "parking_reserve" }
+          }
+        ]
+      },
+      {
+        "block": "list",
+        "items": [
+          {
+            "item": "icon_card",
+            "label": "抢购1",
+            "icon": "https://robot-vr-public.bj.bcebos.com/aibeeclaw/images/20260608_125219_onp2.png",
+            "highlight": "抢",
+            "action": { "type": "jump", "url": "https://www.baidu.com" }
+          },
+          {
+            "item": "icon_card",
+            "label": "抢购2",
+            "image": "https://robot-vr-public.bj.bcebos.com/aibeeclaw/images/20260608_125219_onp2.png",
+            "highlight": "抢",
+            "action": { "type": "jump", "url": "https://www.baidu.com" }
+          }
+        ]
+      }
+    ]
+  }
+  

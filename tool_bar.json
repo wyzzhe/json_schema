@@ -1,18 +1,31 @@
 {
   "widget": "tool_bar",
   "widget_id": "tool_bar",
-  "place_id": "841",
-  "user_id": "493354710498488320",
   "blocks": [
+    { "block": "header", "title": "可以关闭吗？" },
     {
-      "block": "carousel",
+      "block": "list",
       "items": [
+        {
+          "item": "button",
+          "label": "文字按钮",
+          "props": { "style": "normal" },
+          "icon": "https://robot-vr-public.bj.bcebos.com/aibeeclaw/images/20260608_125219_onp2.png",
+          "action": { "type": "jump", "url": "https://www.baidu.com" }
+        },
+        {
+          "item": "button",
+          "label": "图片按钮",
+          "props": { "style": "image" },
+          "image": "https://robot-vr-public.bj.bcebos.com/aibeeclaw/images/20260608_125219_onp2.png",
+          "action": { "type": "jump", "url": "https://www.baidu.com" }
+        },
         {
           "item": "button",
           "label": "预约停车位",
           "props": { "style": "normal" },
           "icon": "https://robot-vr-public.bj.bcebos.com/aibeeclaw/images/20260608_125219_onp2.png",
-          "action": { "type": "open_popup", "popup_id": "parking_reverse" }
+          "action": { "type": "open_popup", "popup_id": "parking_reserve" }
         },
         {
           "item": "button",

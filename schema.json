@@ -28,7 +28,28 @@
         }
     },
     "item": {
-        "type": ["button", "input", "datetime_picker", "plate_input"],
+        "type": ["button", "input", "datetime_picker", "plate_input", "media_card", "icon_card"],
+        "media_card": {
+            "layout": "image(left) + title + lines[] + tags[] + highlight + buttons[]",
+            "fields": {
+                "image": "cover image URL",
+                "title": "card title",
+                "lines": "multi-line text array",
+                "tags": "tag label array",
+                "highlight": "highlight text",
+                "buttons": "button item array"
+            }
+        },
+        "icon_card": {
+            "layout": "icon(left) + label + highlight(right action)",
+            "fields": {
+                "icon": "icon URL (fallback: image)",
+                "label": "main label",
+                "highlight": "right-side action text (replaces button)",
+                "action": "action bound to highlight area",
+                "button": "optional explicit button item override"
+            }
+        },
         "button": {
             "props": {
                 "style": ["primary", "secondary", "normal", "image"],
@@ -37,7 +58,10 @@
                 "image": "image URL (for image button)"
             },
             "action": {
-                "type": ["jump", "open_popup", "send_msg", "close"],
+                "type": ["jump", "open_popup", "send_msg", "call", "nav"],
+                "jump": {
+                    "url": "target URL, opens in new tab"
+                },
                 "open_popup": {
                     "popup_id": "popup id, requests GET /aibee_claw/api/popup/{popup_id}?place_id=&user_id="
                 }
