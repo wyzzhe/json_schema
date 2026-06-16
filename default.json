@@ -1,0 +1,75 @@
+{
+  "widget": "modal",
+  "widget_id": "预约车位",
+  "blocks": [
+    {
+      "block": "header",
+      "title": "预约车位"
+    },
+    {
+      "block": "list",
+      "items": [
+        {
+          "item": "plate_input",
+          "key": "plate",
+          "label": "车辆号码",
+          "props": {
+            "default": "京A",
+            "desc": "请输入预约车位的车辆号牌"
+          }
+        },
+        {
+          "item": "datetime_picker",
+          "key": "arrive_time",
+          "label": "预计到达时间",
+          "props": {
+            "desc": "车位将保留10分钟"
+          }
+        }
+      ]
+    },
+    {
+      "block": "carousel",
+      "title": "快捷操作",
+      "items": [
+        { "item": "button", "label": "导航", "props": { "style": "secondary" } },
+        { "item": "button", "label": "充电", "props": { "style": "secondary" } },
+        { "item": "button", "label": "洗车", "props": { "style": "secondary" } }
+      ]
+    },
+    {
+      "block": "grid",
+      "title": "服务入口",
+      "items": [
+        { "item": "button", "label": "停车缴费", "props": { "style": "normal" } },
+        { "item": "button", "label": "月卡办理", "props": { "style": "normal" } },
+        { "item": "button", "label": "发票申请", "props": { "style": "normal" } },
+        { "item": "button", "label": "客服咨询", "props": { "style": "normal" } }
+      ]
+    },
+    {
+      "block": "list",
+      "title": "按钮样式预览",
+      "items": [
+        { "item": "button", "label": "主要按钮", "props": { "style": "primary" } },
+        { "item": "button", "label": "次要按钮", "props": { "style": "secondary" } },
+        { "item": "button", "label": "普通按钮", "props": { "style": "normal" } },
+        { "item": "button", "label": "图片按钮", "props": { "style": "image", "image": "https://via.placeholder.com/120x48/e84b3a/ffffff?text=IMG" } },
+        { "item": "button", "label": "50% 宽度", "props": { "style": "primary", "width": "50%" } },
+        { "item": "button", "label": "200px 宽度", "props": { "style": "secondary", "width": 200 } },
+        { "item": "button", "label": "带 Icon", "props": { "style": "normal", "icon": "https://via.placeholder.com/20" } }
+      ]
+    },
+    {
+      "block": "submit",
+      "items": [
+        {
+          "item": "button",
+          "label": "立即预约",
+          "props": { "style": "primary", "width": "100%" }
+        }
+      ]
+    }
+  ]
+}
+        

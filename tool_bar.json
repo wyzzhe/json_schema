@@ -1,0 +1,34 @@
+{
+  "widget": "tool_bar",
+  "widget_id": "tool_bar",
+  "place_id": "841",
+  "user_id": "493354710498488320",
+  "blocks": [
+    {
+      "block": "carousel",
+      "items": [
+        {
+          "item": "button",
+          "label": "预约停车位",
+          "props": { "style": "normal" },
+          "icon": "https://robot-vr-public.bj.bcebos.com/aibeeclaw/images/20260608_125219_onp2.png",
+          "action": { "type": "open_popup", "popup_id": "parking_reverse" }
+        },
+        {
+          "item": "button",
+          "label": "预定餐厅",
+          "props": { "style": "normal" },
+          "icon": "https://robot-vr-public.bj.bcebos.com/aibeeclaw/images/20260608_125219_onp2.png",
+          "action": { "type": "send_msg", "msg": "我要预定餐厅" }
+        },
+        {
+          "item": "button",
+          "label": "投诉建议",
+          "props": { "style": "normal" },
+          "icon": "https://robot-vr-public.bj.bcebos.com/aibeeclaw/images/20260608_125219_onp2.png",
+          "action": { "type": "open_popup", "popup_id": "complaint_feedback" }
+        }
+      ]
+    }
+  ]
+}

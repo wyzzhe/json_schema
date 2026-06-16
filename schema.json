@@ -1,0 +1,50 @@
+{
+    "widget": {
+        "type": ["guide_dialog", "tool_bar", "card", "button", "popup", "suggest"]
+    },
+    "block": {
+        "type": {
+            "header": {
+                "description": "头部展示块：弹窗主题。不需要 items；title 显示大标题；带有关闭按钮",
+                "fields": ["title"],
+                "items": false
+            },
+            "list": {
+                "description": "纵向列表：可放实体、表单；每个 item 为 1 行，纵向排列；如有 title 显示中标题",
+                "fields": ["title", "items"]
+            },
+            "carousel": {
+                "description": "横滑列表：图文商品/菜品卡、按钮横向列表；item 横向排列，可横滑；如有 title 显示中标题",
+                "fields": ["title", "items"]
+            },
+            "grid": {
+                "description": "宫格罗列：主要展示功能类按钮矩阵，每行最多 n 列（根据 item 数量计算）；如有 title 显示中标题",
+                "fields": ["title", "items"]
+            },
+            "submit": {
+                "description": "提交块：仅承载提交类型按钮，点击后会自动关闭弹框",
+                "fields": ["items"]
+            }
+        }
+    },
+    "item": {
+        "type": ["button", "input", "datetime_picker", "plate_input"],
+        "button": {
+            "props": {
+                "style": ["primary", "secondary", "normal", "image"],
+                "width": "number(px) | percentage | omit for auto",
+                "icon": "icon URL (for primary/secondary/normal buttons)",
+                "image": "image URL (for image button)"
+            },
+            "action": {
+                "type": ["jump", "open_popup", "send_msg", "close"],
+                "open_popup": {
+                    "popup_id": "popup id, requests GET /aibee_claw/api/popup/{popup_id}?place_id=&user_id="
+                }
+            }
+        }
+    },
+    "action": {
+        "type": ["jump", "open_popup", "send_msg", "close"]
+    }
+}

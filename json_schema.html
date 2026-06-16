@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <title>AI JSON 组件预览工具</title>
+    <style>
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            display: flex;
+            height: 100vh;
+            margin: 0;
+            background: #f5f5f5;
+        }
+
+        .editor-container {
+            width: 50%;
+            padding: 20px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+        }
+
+        #jsonInput {
+            flex-grow: 1;
+            padding: 15px;
+            font-family: monospace;
+            font-size: 14px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            resize: none;
+            background: #2d2d2d;
+            color: #fff;
+        }
+
+        .preview-container {
+            width: 50%;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* 模拟手机壳 */
+        .mobile-mockup {
+            width: 375px;
+            height: 750px;
+            background: white;
+            border: 12px solid #333;
+            border-radius: 40px;
+            overflow-y: auto;
+            padding: 20px;
+            box-sizing: border-box;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        /* 组件基础样式 */
+        .widget-title {
+            font-size: 18px;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .block-card {
+            background: #fff;
+            border: 1px solid #ebeef5;
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.05);
+        }
+
+        .block-title-md {
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 5px;
+        }
+
+        .block-title-lg {
+            font-size: 22px;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        /* Item 样式 */
+        .item-row {
+            margin-bottom: 12px;
+        }
+
+        .item-label {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 4px;
+            display: block;
+        }
+
+        .item-input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #dcdfe6;
+            border-radius: 6px;
+            box-sizing: border-box;
+            font-size: 14px;
+            background: #f8f9fa;
+        }
+
+        /* button：主要 / 次要 / 普通 / 图片 */
+        .btn-row {
+            margin-bottom: 14px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .btn-row.btn-row-left {
+            justify-content: flex-start;
+        }
+
+        .item-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 12px 20px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            border: 3px solid #000;
+            box-shadow: 4px 4px 0 #000;
+            box-sizing: border-box;
+            transition: transform 0.1s, box-shadow 0.1s;
+            width: auto;
+            max-width: 100%;
+        }
+
+        .item-button:hover {
+            opacity: 0.92;
+        }
+
+        .item-button:active {
+            transform: translate(2px, 2px);
+            box-shadow: 2px 2px 0 #000;
+        }
+
+        .btn-primary {
+            background: #e84b3a;
+            color: #fff;
+        }
+
+        .btn-secondary {
+            background: #f5b5a8;
+            color: #000;
+        }
+
+        .btn-normal {
+            background: #fff;
+            color: #000;
+        }
+
+        .btn-image {
+            background: #fff;
+            padding: 0;
+            overflow: hidden;
+            line-height: 0;
+        }
+
+        .btn-icon,
+        .btn-icon-placeholder {
+            width: 20px;
+            height: 20px;
+            flex-shrink: 0;
+            border-radius: 4px;
+        }
+
+        .btn-icon {
+            object-fit: contain;
+        }
+
+        .btn-icon-placeholder {
+            display: inline-block;
+            background: #000;
+        }
+
+        .btn-primary .btn-icon-placeholder {
+            background: #fff;
+        }
+
+        .btn-image-full {
+            display: block;
+            width: 100%;
+            height: auto;
+        }
+
+        .btn-image-placeholder {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 80px;
+            min-height: 48px;
+            padding: 8px 16px;
+            font-size: 14px;
+            color: #666;
+        }
+
+        /* block 类型布局 */
+        .block-header {
+            background: transparent;
+            border: none;
+            box-shadow: none;
+            padding: 0 0 16px;
+        }
+
+        .block-header-inner {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            min-height: 32px;
+        }
+
+        .block-header-close {
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 28px;
+            height: 28px;
+            border: 2px solid #000;
+            background: #fff;
+            box-shadow: 2px 2px 0 #000;
+            cursor: pointer;
+            font-size: 16px;
+            line-height: 24px;
+            text-align: center;
+            padding: 0;
+        }
+
+        .block-header-close:active {
+            transform: translateY(-50%) translate(1px, 1px);
+            box-shadow: 1px 1px 0 #000;
+        }
+
+        .block-submit {
+            background: transparent;
+            border: none;
+            box-shadow: none;
+            padding: 10px 0 0;
+        }
+
+        .block-carousel .carousel-track {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            padding-bottom: 8px;
+            scroll-snap-type: x mandatory;
+        }
+
+        .block-carousel .carousel-track::-webkit-scrollbar {
+            height: 4px;
+        }
+
+        .block-carousel .carousel-track::-webkit-scrollbar-thumb {
+            background: #dcdfe6;
+            border-radius: 2px;
+        }
+
+        .block-carousel .carousel-item {
+            scroll-snap-align: start;
+            flex-shrink: 0;
+        }
+
+        .block-carousel .carousel-item .item-button {
+            white-space: nowrap;
+        }
+
+        .block-grid .grid-item .btn-row {
+            margin-bottom: 0;
+        }
+
+        .block-submit .btn-row {
+            margin-bottom: 0;
+        }
+
+        .block-grid .grid-track {
+            display: grid;
+            gap: 10px;
+        }
+
+        .block-marquee {
+            background: #fdf6ec;
+            border: 1px solid #faecd8;
+            padding: 8px 12px;
+            overflow: hidden;
+        }
+
+        .block-marquee .marquee-wrap {
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+
+        .block-marquee .marquee-text {
+            display: inline-block;
+            animation: marquee-scroll 12s linear infinite;
+            color: #e6a23c;
+            font-size: 13px;
+        }
+
+        @keyframes marquee-scroll {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+
+        .error-msg {
+            color: #f56c6c;
+            padding: 10px;
+            background: #fef0f0;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+
+        .loading-msg {
+            text-align: center;
+            color: #909399;
+            padding: 40px 20px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="editor-container">
+        <h3 style="margin-top: 0;">输入 AI 吐出的 JSON</h3>
+        <textarea id="jsonInput">
+{
+  "widget": "tool_bar",
+  "widget_id": "tool_bar",
+  "place_id": "841",
+  "user_id": "493354710498488320",
+  "blocks": [
+    {
+      "block": "carousel",
+      "items": [
+        {
+          "item": "button",
+          "label": "预约停车位",
+          "props": { "style": "normal" },
+          "icon": "https://robot-vr-public.bj.bcebos.com/aibeeclaw/images/20260608_125219_onp2.png",
+          "action": { "type": "open_popup", "popup_id": "parking_reverse" }
+        },
+        {
+          "item": "button",
+          "label": "预定餐厅",
+          "props": { "style": "normal" },
+          "icon": "https://robot-vr-public.bj.bcebos.com/aibeeclaw/images/20260608_125219_onp2.png",
+          "action": { "type": "send_msg", "msg": "我要预定餐厅" }
+        },
+        {
+          "item": "button",
+          "label": "投诉建议",
+          "props": { "style": "normal" },
+          "icon": "https://robot-vr-public.bj.bcebos.com/aibeeclaw/images/20260608_125219_onp2.png",
+          "action": { "type": "open_popup", "popup_id": "complaint_feedback" }
+        }
+      ]
+    }
+  ]
+}
+        </textarea>
+    </div>
+
+    <div class="preview-container">
+        <div class="mobile-mockup" id="app">
+        </div>
+    </div>
+
+    <script>
+        const input = document.getElementById('jsonInput');
+        const app = document.getElementById('app');
+
+        const BUTTON_STYLES = {
+            primary: 'primary',
+            secondary: 'secondary',
+            normal: 'normal',
+            image: 'image'
+        };
+
+        const POPUP_API = {
+            base: 'http://192.168.78.25:8000/aibee_claw/api/popup',
+            place_id: '841',
+            user_id: '493354710498488320'
+        };
+
+        let previewContext = {};
+
+        function escapeHtml(str) {
+            return String(str)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;');
+        }
+
+        function getButtonProps(item) {
+            return item.props || {};
+        }
+
+        function getButtonStyle(item, blockType) {
+            const props = getButtonProps(item);
+            const styleKey = props.style;
+            if (styleKey && BUTTON_STYLES[styleKey]) return BUTTON_STYLES[styleKey];
+            if (blockType === 'submit') return 'primary';
+            return 'normal';
+        }
+
+        function getButtonWidthStyle(props, blockType) {
+            const width = props.width;
+            if (width === undefined || width === null || width === '') {
+                if (blockType === 'grid' || blockType === 'submit') return 'width:100%;';
+                return '';
+            }
+            if (typeof width === 'number') return `width:${width}px;`;
+            const str = String(width).trim();
+            if (/^\d+(\.\d+)?$/.test(str)) return `width:${str}px;`;
+            return `width:${str};`;
+        }
+
+        function getButtonIcon(item) {
+            const props = getButtonProps(item);
+            return item.icon || props.icon || props.image || '';
+        }
+
+        function getButtonAttrs(item, isSubmit) {
+            const attrs = [];
+            const actionType = item.action && item.action.type;
+            if (isSubmit && actionType !== 'open_popup') attrs.push('data-action="close"');
+            if (actionType) {
+                attrs.push(`data-action-type="${escapeHtml(actionType)}"`);
+                if (item.action.popup_id) {
+                    attrs.push(`data-popup-id="${escapeHtml(item.action.popup_id)}"`);
+                }
+                if (item.action.msg) {
+                    attrs.push(`data-action-msg="${escapeHtml(item.action.msg)}"`);
+                }
+            }
+            return attrs.length ? ' ' + attrs.join(' ') : '';
+        }
+
+        function getBlockWrapper(blockType) {
+            if (blockType === 'carousel') return 'carousel-item';
+            if (blockType === 'grid') return 'grid-item';
+            return 'btn-row';
+        }
+
+        function renderButtonIcon(item) {
+            const icon = getButtonIcon(item);
+            if (icon) {
+                return `<img class="btn-icon" src="${escapeHtml(icon)}" alt="">`;
+            }
+            return `<span class="btn-icon-placeholder"></span>`;
+        }
+
+        function renderButton(item, blockType, isSubmit) {
+            const props = getButtonProps(item);
+            const style = getButtonStyle(item, blockType);
+            const widthStyle = getButtonWidthStyle(props, blockType);
+            const label = escapeHtml(item.label || '按钮');
+            const icon = getButtonIcon(item);
+            const actionAttrs = getButtonAttrs(item, isSubmit);
+
+            if (style === 'image') {
+                const inner = icon
+                    ? `<img class="btn-image-full" src="${escapeHtml(icon)}" alt="${label}">`
+                    : `<span class="btn-image-placeholder">${label}</span>`;
+                return `<div class="item-button btn-image" style="${widthStyle}" data-style="image"${actionAttrs}>${inner}</div>`;
+            }
+
+            return `<div class="item-button btn-${style}" style="${widthStyle}" data-style="${style}"${actionAttrs}>` +
+                `${renderButtonIcon(item)}<span class="btn-label">${label}</span></div>`;
+        }
+
+        function renderButtonRow(item, blockType) {
+            const wrapper = getBlockWrapper(blockType);
+            const rowClass = blockType === 'list' ? 'btn-row btn-row-left' : 'btn-row';
+            const isSubmit = blockType === 'submit';
+            const buttonHtml = renderButton(item, blockType, isSubmit);
+            if (wrapper === 'btn-row') {
+                return `<div class="${rowClass}">${buttonHtml}</div>`;
+            }
+            return `<div class="${wrapper}"><div class="${rowClass}">${buttonHtml}</div></div>`;
+        }
+
+        function renderFormItem(item) {
+            if (item.item === 'button') return renderButtonRow(item, null);
+
+            let html = `<div class="item-row">`;
+            if (item.label && item.item !== 'button') {
+                html += `<span class="item-label">${escapeHtml(item.label)} ${item.required ? '*' : ''}</span>`;
+            }
+
+            switch (item.item) {
+                case 'plate_input':
+                case 'input': {
+                    const def = (item.props && item.props.default) ? escapeHtml(item.props.default) : '';
+                    const placeholder = (item.props && item.props.desc) ? escapeHtml(item.props.desc) : '';
+                    html += `<input type="text" class="item-input" value="${def}" placeholder="${placeholder}">`;
+                    break;
+                }
+                case 'datetime_picker': {
+                    const dtDesc = (item.props && item.props.desc) ? escapeHtml(item.props.desc) : '请选择时间';
+                    html += `<input type="datetime-local" class="item-input" title="${dtDesc}">`;
+                    break;
+                }
+                default:
+                    html += `<div class="item-input" style="background:#eee;">[未知组件: ${escapeHtml(item.item)}]</div>`;
+            }
+            html += `</div>`;
+            return html;
+        }
+
+        function renderItems(items, blockType) {
+            if (!items || !Array.isArray(items)) return '';
+            return items.map(item => {
+                if (item.item === 'button') return renderButtonRow(item, blockType);
+                return renderFormItem(item);
+            }).join('');
+        }
+
+        function getGridColumns(count) {
+            if (count <= 1) return 1;
+            if (count === 2) return 2;
+            if (count === 3) return 3;
+            if (count === 4) return 2;
+            if (count <= 6) return 3;
+            if (count <= 8) return 4;
+            return 4;
+        }
+
+        function renderBlockTitle(title, size) {
+            if (!title) return '';
+            const cls = size === 'lg' ? 'block-title-lg' : 'block-title-md';
+            return `<div class="${cls}">${escapeHtml(title)}</div>`;
+        }
+
+        function renderHeaderBlock(block) {
+            let html = `<div class="block-card block-header"><div class="block-header-inner">`;
+            if (block.title) html += renderBlockTitle(block.title, 'lg');
+            html += `<button type="button" class="block-header-close" data-action="close" aria-label="close">×</button>`;
+            html += `</div></div>`;
+            return html;
+        }
+
+        function renderBlock(block) {
+            const blockType = block.block || 'list';
+            let html = '';
+
+            switch (blockType) {
+                case 'header':
+                    html += renderHeaderBlock(block);
+                    break;
+
+                case 'carousel':
+                    html += `<div class="block-card block-carousel">`;
+                    html += renderBlockTitle(block.title, 'md');
+                    html += `<div class="carousel-track">${renderItems(block.items, 'carousel')}</div>`;
+                    html += `</div>`;
+                    break;
+
+                case 'grid': {
+                    const items = block.items || [];
+                    const cols = getGridColumns(items.length);
+                    html += `<div class="block-card block-grid">`;
+                    html += renderBlockTitle(block.title, 'md');
+                    html += `<div class="grid-track" style="grid-template-columns:repeat(${cols},1fr)">${renderItems(items, 'grid')}</div>`;
+                    html += `</div>`;
+                    break;
+                }
+
+                case 'submit':
+                    html += `<div class="block-card block-submit">`;
+                    html += renderItems(block.items, 'submit');
+                    html += `</div>`;
+                    break;
+
+                case 'list':
+                default:
+                    html += `<div class="block-card block-list">`;
+                    html += renderBlockTitle(block.title, 'md');
+                    html += renderItems(block.items, 'list');
+                    html += `</div>`;
+                    break;
+            }
+
+            return html;
+        }
+
+        function normalizePopupData(raw) {
+            if (!raw || typeof raw !== 'object') return raw;
+            if (Array.isArray(raw.blocks)) return raw;
+            if (raw.data && Array.isArray(raw.data.blocks)) return raw.data;
+            if (raw.data && typeof raw.data === 'object') return raw.data;
+            if (raw.result && Array.isArray(raw.result.blocks)) return raw.result;
+            return raw;
+        }
+
+        function buildPopupUrl(popupId) {
+            const placeId = previewContext.place_id || POPUP_API.place_id;
+            const userId = previewContext.user_id || POPUP_API.user_id;
+            return `${POPUP_API.base}/${encodeURIComponent(popupId)}?place_id=${encodeURIComponent(placeId)}&user_id=${encodeURIComponent(userId)}`;
+        }
+
+        async function handleOpenPopup(popupId) {
+            const url = buildPopupUrl(popupId);
+            app.innerHTML = `<div class="loading-msg">加载弹窗中…<br><span style="font-size:12px;color:#c0c4cc;">${escapeHtml(url)}</span></div>`;
+            try {
+                const res = await fetch(url);
+                if (!res.ok) throw new Error(`HTTP ${res.status}`);
+                const raw = await res.json();
+                const data = normalizePopupData(raw);
+                if (!data || !Array.isArray(data.blocks)) {
+                    throw new Error('响应格式无效，缺少 blocks');
+                }
+                renderPreviewData(data);
+            } catch (e) {
+                app.innerHTML = `<div class="error-msg">弹窗请求失败<br><br>${escapeHtml(e.message)}<br><br><span style="font-size:12px;">${escapeHtml(url)}</span></div>`;
+            }
+        }
+
+        function renderPreviewData(data) {
+            previewContext = {
+                place_id: data.place_id || POPUP_API.place_id,
+                user_id: data.user_id || POPUP_API.user_id
+            };
+
+            let html = '';
+            const hasHeader = data.blocks && data.blocks.some(b => b.block === 'header');
+
+            if (data.widget && data.widget_id && !hasHeader) {
+                html += `<div class="widget-title">${escapeHtml(data.widget_id)}</div>`;
+            }
+
+            if (data.blocks && Array.isArray(data.blocks)) {
+                data.blocks.forEach(block => {
+                    html += renderBlock(block);
+                });
+            }
+
+            app.innerHTML = html || `<div class="loading-msg">弹窗数据为空</div>`;
+        }
+
+        function render() {
+            try {
+                const data = JSON.parse(input.value);
+                renderPreviewData(data);
+            } catch (e) {
+                app.innerHTML = `<div class="error-msg">JSON 格式错误，无法解析！<br><br>${escapeHtml(e.message)}</div>`;
+            }
+        }
+
+        function closePopup() {
+            app.innerHTML = `<div style="text-align:center;color:#999;padding:40px 20px;">弹框已关闭</div>`;
+        }
+
+        function handleAppClick(e) {
+            if (e.target.closest('[data-action="close"]')) {
+                closePopup();
+                return;
+            }
+
+            const popupBtn = e.target.closest('.item-button[data-action-type="open_popup"]');
+            if (popupBtn && popupBtn.dataset.popupId) {
+                handleOpenPopup(popupBtn.dataset.popupId);
+                return;
+            }
+
+            const msgBtn = e.target.closest('.item-button[data-action-type="send_msg"]');
+            if (msgBtn && msgBtn.dataset.actionMsg) {
+                console.log('[send_msg]', msgBtn.dataset.actionMsg);
+            }
+        }
+
+        app.addEventListener('click', handleAppClick);
+        input.addEventListener('input', render);
+        render();
+    </script>
+</body>
+
+</html>
