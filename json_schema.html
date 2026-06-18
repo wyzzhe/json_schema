@@ -1226,8 +1226,122 @@
             return html;
         }
 
+        function parseTimeHHMM(str) {
+            if (!str) return null;
+            const m = String(str).trim().match(/^(\d{1,2}):(\d{2})/);
+            if (!m) return null;
+            return { h: parseInt(m[1], 10), m: parseInt(m[2], 10) };
+        }
+
+        function parseBusinessHoursFromDesc(desc) {
+            if (!desc) return null;
+            const m = String(desc).match(/(\d{1,2}:\d{2})\s*[-~–至]\s*(\d{1,2}:\d{2})/);
+            if (!m) return null;
+            const pad = t => {
+                const p = parseTimeHHMM(t);
+                if (!p) return t;
+                return `${String(p.h).padStart(2, '0')}:${String(p.m).padStart(2, '0')}`;
+            };
+            return { minTime: pad(m[1]), maxTime: pad(m[2]) };
+        }
+
+        function extractDatePart(value) {
+            if (!value) return '';
+            const str = String(value).trim();
+            const m = str.match(/^(\d{4}-\d{2}-\d{2})/);
+            return m ? m[1] : '';
+        }
+
+        function extractTimePart(value) {
+            if (!value) return '';
+            const str = String(value).trim();
+            const m = str.match(/T(\d{2}:\d{2})/);
+            return m ? m[1] : '';
+        }
+
+        function toDatetimeLocal(dateStr, timeStr) {
+            const date = extractDatePart(dateStr);
+            if (!date) return '';
+            const t = timeStr ? String(timeStr).trim().slice(0, 5) : '00:00';
+            if (!/^\d{2}:\d{2}$/.test(t)) return '';
+            return `${date}T${t}`;
+        }
+
+        function buildDateTimePickerBounds(item) {
+            const desc = getItemFieldProp(item, 'desc', '');
+            const fromDesc = parseBusinessHoursFromDesc(desc);
+
+            let minRaw = getItemFieldProp(item, 'min', '');
+            let maxRaw = getItemFieldProp(item, 'max', '');
+            let minDate = getItemFieldProp(item, 'min_date', '') || extractDatePart(minRaw);
+            let maxDate = getItemFieldProp(item, 'max_date', '') || extractDatePart(maxRaw);
+
+            let minTime = getItemFieldProp(item, 'min_time', '') || getItemFieldProp(item, 'start_time', '');
+            let maxTime = getItemFieldProp(item, 'max_time', '') || getItemFieldProp(item, 'end_time', '');
+            if (!minTime) minTime = extractTimePart(minRaw);
+            if (!maxTime) maxTime = extractTimePart(maxRaw);
+            if (!minTime && fromDesc) minTime = fromDesc.minTime;
+            if (!maxTime && fromDesc) maxTime = fromDesc.maxTime;
+
+            const minAttr = minDate ? toDatetimeLocal(minDate, minTime || '00:00') : '';
+            const maxAttr = maxDate ? toDatetimeLocal(maxDate, maxTime || '23:59') : '';
+
+            let def = getItemFieldProp(item, 'default', '');
+            if (def && !def.includes('T') && minDate) {
+                def = toDatetimeLocal(minDate, def);
+            }
+
+            return { minDate, maxDate, minTime, maxTime, minAttr, maxAttr, def };
+        }
+
+        function clampDateTimeLocalValue(value, bounds) {
+            if (!value) return value;
+            const parts = value.split('T');
+            if (parts.length < 2) return value;
+            const datePart = parts[0];
+            const { minDate, maxDate, minTime, maxTime } = bounds;
+
+            if (minDate && datePart < minDate) return toDatetimeLocal(minDate, minTime || '00:00');
+            if (maxDate && datePart > maxDate) return toDatetimeLocal(maxDate, maxTime || '23:59');
+
+            if (!minTime || !maxTime) return value;
+
+            const t = parseTimeHHMM(parts[1]);
+            const lo = parseTimeHHMM(minTime);
+            const hi = parseTimeHHMM(maxTime);
+            if (!t || !lo || !hi) return value;
+
+            const cur = t.h * 60 + t.m;
+            const loMin = lo.h * 60 + lo.m;
+            const hiMin = hi.h * 60 + hi.m;
+            let clamped = cur;
+            if (cur < loMin) clamped = loMin;
+            if (cur > hiMin) clamped = hiMin;
+
+            if (clamped === cur) return value;
+            const h = String(Math.floor(clamped / 60)).padStart(2, '0');
+            const m = String(clamped % 60).padStart(2, '0');
+            return `${datePart}T${h}:${m}`;
+        }
+
         function renderDateTimeInput(type, item) {
             const placeholder = escapeHtml(getItemFieldProp(item, 'desc', ''));
+
+            if (type === 'datetime-local') {
+                const bounds = buildDateTimePickerBounds(item);
+                let attrs = `class="item-input item-datetime-local"`;
+                if (bounds.def) attrs += ` value="${escapeHtml(bounds.def)}"`;
+                if (bounds.minAttr) attrs += ` min="${escapeHtml(bounds.minAttr)}"`;
+                if (bounds.maxAttr) attrs += ` max="${escapeHtml(bounds.maxAttr)}"`;
+                if (bounds.minDate) attrs += ` data-dt-min-date="${escapeHtml(bounds.minDate)}"`;
+                if (bounds.maxDate) attrs += ` data-dt-max-date="${escapeHtml(bounds.maxDate)}"`;
+                if (bounds.minTime) attrs += ` data-dt-min-time="${escapeHtml(bounds.minTime)}"`;
+                if (bounds.maxTime) attrs += ` data-dt-max-time="${escapeHtml(bounds.maxTime)}"`;
+                let html = `<input type="datetime-local" ${attrs}>`;
+                html += renderItemDesc(item);
+                return html;
+            }
+
             const def = escapeHtml(getItemFieldProp(item, 'default', ''));
             const min = escapeHtml(getItemFieldProp(item, 'min', ''));
             const max = escapeHtml(getItemFieldProp(item, 'max', ''));
@@ -1886,6 +2000,20 @@
             window.open(url, '_blank', 'noopener,noreferrer');
         }
 
+        function handleDateTimeLocalChange(input) {
+            if (!input || !input.classList.contains('item-datetime-local')) return;
+            const bounds = {
+                minDate: input.dataset.dtMinDate || '',
+                maxDate: input.dataset.dtMaxDate || '',
+                minTime: input.dataset.dtMinTime || '',
+                maxTime: input.dataset.dtMaxTime || ''
+            };
+            const clamped = clampDateTimeLocalValue(input.value, bounds);
+            if (clamped && clamped !== input.value) {
+                input.value = clamped;
+            }
+        }
+
         function handleAppClick(e) {
             if (e.target.closest('[data-action="close"]')) {
                 closePopup();
@@ -1934,6 +2062,12 @@
         }
 
         app.addEventListener('click', handleAppClick);
+        app.addEventListener('change', e => handleDateTimeLocalChange(e.target));
+        app.addEventListener('input', e => {
+            if (e.target && e.target.classList.contains('item-datetime-local')) {
+                handleDateTimeLocalChange(e.target);
+            }
+        });
         input.addEventListener('input', render);
         questionFetchBtn.addEventListener('click', () => {
             fetchQuestionWidget().catch(e => {

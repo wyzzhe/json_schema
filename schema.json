@@ -154,10 +154,14 @@
             "description": "日期时间选择",
             "fields": ["key", "label", "required"],
             "props": {
-                "min": "最小值",
-                "max": "最大值",
+                "min": "最小日期或日期时间",
+                "max": "最大日期或日期时间",
+                "min_date": "最小日期（可与 min_time 组合）",
+                "max_date": "最大日期（可与 max_time 组合）",
+                "min_time": "每日可选开始时间，如 10:00",
+                "max_time": "每日可选结束时间，如 17:17",
                 "default": "默认值",
-                "desc": "辅助说明"
+                "desc": "辅助说明；可含营业时间 10:00-17:17 作为时间限制回退"
             }
         },
         "date_range_picker": {
