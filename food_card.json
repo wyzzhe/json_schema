@@ -41,15 +41,23 @@
             "item": "icon_card",
             "label": "抢购1",
             "icon": "https://robot-vr-public.bj.bcebos.com/aibeeclaw/images/20260608_125219_onp2.png",
-            "highlight": "抢",
-            "action": { "type": "jump", "url": "https://www.baidu.com" }
+            "button": {
+              "label": "抢",
+              "icon": "https://robot-vr-public.bj.bcebos.com/aibeeclaw/images/20260608_125219_onp2.png",
+              "style": "secondary",
+              "action": { "type": "jump", "url": "https://www.baidu.com" }
+            }
           },
           {
             "item": "icon_card",
             "label": "抢购2",
             "image": "https://robot-vr-public.bj.bcebos.com/aibeeclaw/images/20260608_125219_onp2.png",
-            "highlight": "抢",
-            "action": { "type": "jump", "url": "https://www.baidu.com" }
+            "button": {
+              "label": "抢",
+              "icon": "https://robot-vr-public.bj.bcebos.com/aibeeclaw/images/20260608_125219_onp2.png",
+              "style": "secondary",
+              "action": { "type": "jump", "url": "https://www.baidu.com" }
+            }
           }
         ]
       }

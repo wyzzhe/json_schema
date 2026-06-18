@@ -1,0 +1,214 @@
+{
+  "widget": "popup",
+  "widget_id": "p0_showcase",
+  "blocks": [
+    {
+      "block": "header",
+      "title": "P0 组件全览"
+    },
+    {
+      "block": "list",
+      "title": "输入类",
+      "items": [
+        {
+          "item": "plate_input",
+          "key": "plate",
+          "label": "车牌号",
+          "required": true,
+          "props": { "default": "京A", "desc": "请输入车牌号" }
+        },
+        {
+          "item": "input",
+          "key": "name",
+          "label": "姓名",
+          "required": true,
+          "props": { "max_length": 20, "desc": "请输入姓名" }
+        },
+        {
+          "item": "textarea",
+          "key": "content",
+          "label": "备注",
+          "props": { "desc": "多行文本", "rows": 3, "max_length": 200 }
+        },
+        {
+          "item": "radio_group",
+          "key": "type",
+          "label": "类型",
+          "required": true,
+          "props": {
+            "options": [
+              { "label": "投诉", "value": "complaint" },
+              { "label": "建议", "value": "suggestion" }
+            ],
+            "desc": "请选择类型"
+          }
+        },
+        {
+          "item": "checkbox_group",
+          "key": "tags",
+          "label": "标签",
+          "props": {
+            "options": ["停车", "餐饮", "导购", "环境"],
+            "max": 2,
+            "desc": "最多选 2 项"
+          }
+        },
+        {
+          "item": "take_photo",
+          "key": "photos",
+          "label": "上传图片",
+          "required": true,
+          "props": { "max": 3, "media_type": "image", "desc": "点击拍照或上传" }
+        },
+        {
+          "item": "switch",
+          "key": "need_invoice",
+          "label": "需要发票",
+          "props": { "default": false, "desc": "勾选后开具电子发票" }
+        },
+        {
+          "item": "date_picker",
+          "key": "date",
+          "label": "日期",
+          "props": { "desc": "选择日期" }
+        },
+        {
+          "item": "time_picker",
+          "key": "time",
+          "label": "时间",
+          "props": { "desc": "选择时间" }
+        },
+        {
+          "item": "datetime_picker",
+          "key": "arrive_time",
+          "label": "到达时间",
+          "props": { "desc": "车位将保留 10 分钟" }
+        },
+        {
+          "item": "date_range_picker",
+          "key": "date_range",
+          "label": "日期范围",
+          "props": { "default": ["2026-06-01", "2026-06-07"], "desc": "选择起止日期" }
+        },
+        {
+          "item": "time_range_picker",
+          "key": "time_range",
+          "label": "时间范围",
+          "props": { "default": ["09:00", "18:00"], "desc": "选择营业时段" }
+        },
+        {
+          "item": "phone_input",
+          "key": "phone",
+          "label": "手机号",
+          "required": true,
+          "props": { "desc": "请输入手机号", "sms_verify": true }
+        }
+      ]
+    },
+    {
+      "block": "list",
+      "title": "展示类",
+      "items": [
+        {
+          "item": "info",
+          "label": "营业时间",
+          "props": { "value": "10:00 - 22:00" }
+        },
+        {
+          "item": "rich_text",
+          "props": {
+            "content": "**温馨提示**\n请提前 15 分钟到达。[查看详情](https://www.baidu.com)"
+          }
+        },
+        {
+          "item": "tag",
+          "props": { "tags": ["营业中", "可预约", "必吃榜"] }
+        },
+        {
+          "item": "image",
+          "props": {
+            "images": [
+              "https://robot-vr-public.bj.bcebos.com/aibeeclaw/images/20260608_125219_onp2.png",
+              "https://robot-vr-public.bj.bcebos.com/aibeeclaw/images/20260608_125219_onp2.png"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "block": "carousel",
+      "title": "卡片类",
+      "items": [
+        {
+          "item": "compact_card",
+          "image": "https://robot-vr-public.bj.bcebos.com/aibeeclaw/images/20260608_125219_onp2.png",
+          "title": "搜索结果紧凑卡",
+          "button": {
+            "label": "查看",
+            "style": "secondary",
+            "action": { "type": "jump", "url": "https://www.baidu.com" }
+          }
+        },
+        {
+          "item": "cover_card",
+          "image": "https://robot-vr-public.bj.bcebos.com/aibeeclaw/images/20260608_125219_onp2.png",
+          "title": "限时特惠套餐",
+          "highlight": "¥ 99",
+          "desc": "含双人套餐，周末可用",
+          "buttons": [
+            {
+              "label": "抢购",
+              "style": "primary",
+              "action": { "type": "jump", "url": "https://www.baidu.com" }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "block": "list",
+      "title": "实体卡",
+      "items": [
+        {
+          "item": "media_card",
+          "image": "https://robot-vr-public.bj.bcebos.com/aibeeclaw/images/20260608_125219_onp2.png",
+          "title": "外婆家（朝阳大悦城店）",
+          "lines": ["江浙菜 · 人均 ¥68", "朝阳大悦城 7F"],
+          "tags": ["必吃榜", "可预约"],
+          "highlight": "限时 8.5 折",
+          "buttons": [
+            { "label": "去预约", "style": "normal", "action": { "type": "send_msg", "msg": "我要预约" } }
+          ]
+        },
+        {
+          "item": "icon_card",
+          "label": "会员积分兑换",
+          "icon": "https://robot-vr-public.bj.bcebos.com/aibeeclaw/images/20260608_125219_onp2.png",
+          "highlight": "500 积分",
+          "button": {
+            "label": "兑换",
+            "icon": "https://robot-vr-public.bj.bcebos.com/aibeeclaw/images/20260608_125219_onp2.png",
+            "style": "secondary",
+            "action": { "type": "jump", "url": "https://www.baidu.com" }
+          }
+        }
+      ]
+    },
+    {
+      "block": "submit",
+      "items": [
+        {
+          "item": "button",
+          "label": "提交",
+          "props": { "style": "primary", "width": "100%" },
+          "action": {
+            "type": "send_msg",
+            "scope": ["plate", "name", "phone"],
+            "text_template": "预约 {plate} 车辆，联系人 {name}，手机 {phone}",
+            "payload": { "tool": "demo", "args": {} }
+          }
+        }
+      ]
+    }
+  ]
+}

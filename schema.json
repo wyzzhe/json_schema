@@ -1,6 +1,7 @@
 {
     "widget": {
-        "type": ["guide_dialog", "tool_bar", "card", "button", "popup", "suggest"]
+        "type": ["modal", "popup", "tool_bar", "card", "button", "guide_dialog", "suggest"],
+        "modal": "popup 别名，解析同等处理"
     },
     "block": {
         "type": {
@@ -28,7 +29,166 @@
         }
     },
     "item": {
-        "type": ["button", "input", "datetime_picker", "plate_input", "media_card", "icon_card"],
+        "type": [
+            "button",
+            "input",
+            "textarea",
+            "plate_input",
+            "radio_group",
+            "checkbox_group",
+            "take_photo",
+            "switch",
+            "date_picker",
+            "time_picker",
+            "datetime_picker",
+            "date_range_picker",
+            "time_range_picker",
+            "phone_input",
+            "media_card",
+            "compact_card",
+            "icon_card",
+            "cover_card",
+            "info",
+            "rich_text",
+            "tag",
+            "image"
+        ],
+        "button_payload": {
+            "description": "槽位内按钮（icon_card.button / media_card.buttons[] / compact_card.button / cover_card.buttons[]）；无 item，字段扁平",
+            "fields": {
+                "label": "button text",
+                "icon": "icon URL (primary/secondary/normal)",
+                "image": "image URL (style=image)",
+                "style": ["primary", "secondary", "normal", "image"],
+                "width": "number(px) | percentage | omit for auto",
+                "action": "action object"
+            },
+            "rules": [
+                "禁止 item 字段",
+                "style/icon/width 写在顶层，不用 props 包裹"
+            ]
+        },
+        "plate_input": {
+            "description": "车牌专属输入",
+            "fields": ["key", "label", "required"],
+            "props": {
+                "default": "默认车牌前缀",
+                "desc": "placeholder 提示"
+            }
+        },
+        "input": {
+            "description": "单行文本",
+            "fields": ["key", "label", "required"],
+            "props": {
+                "max_length": "最大字数",
+                "value_type": "值类型",
+                "default": "默认值",
+                "desc": "placeholder 提示"
+            }
+        },
+        "textarea": {
+            "description": "多行文本",
+            "fields": ["key", "label", "required"],
+            "props": {
+                "max_length": "最大字数",
+                "default": "默认文本",
+                "desc": "placeholder 提示",
+                "rows": "可见行数，默认 4"
+            }
+        },
+        "radio_group": {
+            "description": "单选",
+            "fields": ["key", "label", "required"],
+            "props": {
+                "options": "[{ label, value }]",
+                "desc": "辅助说明"
+            }
+        },
+        "checkbox_group": {
+            "description": "多选",
+            "fields": ["key", "label", "required"],
+            "props": {
+                "options": "[{ label, value }]",
+                "max": "最多选择数量",
+                "desc": "辅助说明"
+            }
+        },
+        "take_photo": {
+            "description": "拍照/相册上传",
+            "fields": ["key", "label", "required"],
+            "props": {
+                "max": "数量限制，默认 1",
+                "media_type": ["image", "video", "both"],
+                "desc": "点击区提示文案"
+            }
+        },
+        "switch": {
+            "description": "开关",
+            "fields": ["key", "label", "required"],
+            "props": {
+                "default": "默认开关状态 bool",
+                "desc": "辅助说明"
+            }
+        },
+        "date_picker": {
+            "description": "日期选择",
+            "fields": ["key", "label", "required"],
+            "props": {
+                "min": "最小日期",
+                "max": "最大日期",
+                "default": "默认值",
+                "desc": "辅助说明"
+            }
+        },
+        "time_picker": {
+            "description": "时间选择",
+            "fields": ["key", "label", "required"],
+            "props": {
+                "min": "最小时间",
+                "max": "最大时间",
+                "default": "默认值",
+                "desc": "辅助说明"
+            }
+        },
+        "datetime_picker": {
+            "description": "日期时间选择",
+            "fields": ["key", "label", "required"],
+            "props": {
+                "min": "最小值",
+                "max": "最大值",
+                "default": "默认值",
+                "desc": "辅助说明"
+            }
+        },
+        "date_range_picker": {
+            "description": "日期范围",
+            "fields": ["key", "label", "required"],
+            "props": {
+                "min": "最小日期",
+                "max": "最大日期",
+                "default": "[start, end]",
+                "desc": "辅助说明"
+            }
+        },
+        "time_range_picker": {
+            "description": "时间范围",
+            "fields": ["key", "label", "required"],
+            "props": {
+                "min": "最小时间",
+                "max": "最大时间",
+                "default": "[start, end]",
+                "desc": "辅助说明"
+            }
+        },
+        "phone_input": {
+            "description": "手机号输入",
+            "fields": ["key", "label", "required"],
+            "props": {
+                "default": "默认值",
+                "desc": "placeholder 提示",
+                "sms_verify": "是否显示短信验证码输入"
+            }
+        },
         "media_card": {
             "layout": "image(left) + title + lines[] + tags[] + highlight + buttons[]",
             "fields": {
@@ -37,20 +197,67 @@
                 "lines": "multi-line text array",
                 "tags": "tag label array",
                 "highlight": "highlight text",
-                "buttons": "button item array"
+                "buttons": "ButtonPayload[]",
+                "action": "optional whole-card action"
+            }
+        },
+        "compact_card": {
+            "layout": "image(left) + title + button?(right)",
+            "fields": {
+                "image": "thumbnail URL",
+                "title": "single line title",
+                "button": "ButtonPayload",
+                "action": "optional whole-card action"
             }
         },
         "icon_card": {
-            "layout": "icon(left) + label + highlight(right action)",
+            "layout": "icon(left) + label + highlight? + button?(right)",
             "fields": {
                 "icon": "icon URL (fallback: image)",
                 "label": "main label",
-                "highlight": "right-side action text (replaces button)",
-                "action": "action bound to highlight area",
-                "button": "optional explicit button item override"
+                "highlight": "emphasis text (not clickable)",
+                "action": "optional whole-card action",
+                "button": "ButtonPayload"
+            }
+        },
+        "cover_card": {
+            "layout": "image(top) + title + highlight? + desc? + buttons[]?",
+            "fields": {
+                "image": "cover image URL",
+                "title": "card title",
+                "highlight": "highlight text",
+                "desc": "description text",
+                "buttons": "ButtonPayload[]",
+                "action": "optional whole-card action"
+            }
+        },
+        "info": {
+            "description": "键值对信息行",
+            "fields": ["label"],
+            "props": {
+                "value": "展示值"
+            }
+        },
+        "rich_text": {
+            "description": "Markdown 富文本",
+            "props": {
+                "content": "markdown 字符串"
+            }
+        },
+        "tag": {
+            "description": "状态/属性标签",
+            "props": {
+                "tags": "标签字符串数组"
+            }
+        },
+        "image": {
+            "description": "单图/图集横滑",
+            "props": {
+                "images": "图片 URL 数组"
             }
         },
         "button": {
+            "description": "blocks[].items[] 顶层列表项；必须带 item: button",
             "props": {
                 "style": ["primary", "secondary", "normal", "image"],
                 "width": "number(px) | percentage | omit for auto",
@@ -64,11 +271,21 @@
                 },
                 "open_popup": {
                     "popup_id": "popup id, requests GET /aibee_claw/api/popup/{popup_id}?place_id=&user_id="
-                }
+                },
+                "send_msg": {
+                    "scope": "字段名数组",
+                    "text_template": "用户对话文案模板",
+                    "payload": "工具入参对象",
+                    "msg": "简写文案"
+                },
+                "call": {
+                    "tel": "电话号码"
+                },
+                "nav": "导航参数对象"
             }
         }
     },
     "action": {
-        "type": ["jump", "open_popup", "send_msg", "close"]
+        "type": ["jump", "open_popup", "send_msg", "call", "nav", "close"]
     }
 }

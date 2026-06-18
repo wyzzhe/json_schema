@@ -1,0 +1,45 @@
+{
+  "widget": "popup",
+  "widget_id": "complaint_feedback",
+  "blocks": [
+    {
+      "block": "header",
+      "title": "投诉建议"
+    },
+    {
+      "block": "list",
+      "items": [
+        {
+          "item": "textarea",
+          "key": "content",
+          "label": "投诉建议",
+          "required": true,
+          "props": {
+            "desc": "请描述您遇到的问题或建议",
+            "rows": 4
+          }
+        },
+        {
+          "item": "take_photo",
+          "key": "images",
+          "label": "图片",
+          "required": true,
+          "props": {
+            "desc": "点击拍照或上传图片",
+            "max": 3
+          }
+        }
+      ]
+    },
+    {
+      "block": "submit",
+      "items": [
+        {
+          "item": "button",
+          "label": "提交",
+          "props": { "style": "primary", "width": "100%" }
+        }
+      ]
+    }
+  ]
+}

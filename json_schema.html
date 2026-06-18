@@ -19,18 +19,123 @@
             box-sizing: border-box;
             display: flex;
             flex-direction: column;
+            height: 100vh;
+            overflow: hidden;
+            min-height: 0;
+        }
+
+        .editor-container > h3 {
+            flex-shrink: 0;
+            margin: 0 0 12px;
+        }
+
+        .api-panel {
+            flex-shrink: 0;
+            margin-bottom: 12px;
+            padding: 12px;
+            background: #1e1e1e;
+            border: 1px solid #444;
+            border-radius: 8px;
+        }
+
+        .api-panel-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: #e0e0e0;
+            margin-bottom: 10px;
+        }
+
+        .api-row {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 8px;
+            align-items: center;
+        }
+
+        .api-row label {
+            font-size: 12px;
+            color: #aaa;
+            flex-shrink: 0;
+            min-width: 72px;
+        }
+
+        .api-row input {
+            flex: 1;
+            padding: 6px 10px;
+            border: 1px solid #555;
+            border-radius: 4px;
+            background: #2d2d2d;
+            color: #fff;
+            font-size: 13px;
+            box-sizing: border-box;
+        }
+
+        .api-fetch-btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 6px;
+            background: #409eff;
+            color: #fff;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 4px;
+        }
+
+        .api-fetch-btn:hover {
+            background: #66b1ff;
+        }
+
+        .api-fetch-btn:disabled {
+            background: #555;
+            cursor: not-allowed;
+        }
+
+        .api-hint {
+            font-size: 11px;
+            color: #888;
+            margin-top: 6px;
+            line-height: 1.4;
+        }
+
+        .editor-tabs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 8px;
+            flex-shrink: 0;
+        }
+
+        .editor-tab {
+            font-size: 12px;
+            color: #aaa;
+        }
+
+        .json-editor-section {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            min-height: 0;
+            overflow: hidden;
         }
 
         #jsonInput {
-            flex-grow: 1;
+            flex: 1;
+            width: 100%;
+            min-height: 160px;
             padding: 15px;
             font-family: monospace;
-            font-size: 14px;
+            font-size: 13px;
+            line-height: 1.5;
             border: 1px solid #ccc;
             border-radius: 8px;
-            resize: none;
+            resize: vertical;
             background: #2d2d2d;
             color: #fff;
+            box-sizing: border-box;
+        }
+
+        #jsonInput::placeholder {
+            color: #777;
         }
 
         .preview-container {
@@ -106,6 +211,49 @@
             box-sizing: border-box;
             font-size: 14px;
             background: #f8f9fa;
+        }
+
+        .item-textarea {
+            min-height: 88px;
+            resize: vertical;
+            line-height: 1.5;
+            font-family: inherit;
+        }
+
+        .item-take-photo {
+            width: 100%;
+            padding: 20px 16px;
+            border: 1px dashed #c0c4cc;
+            border-radius: 6px;
+            background: #f8f9fa;
+            box-sizing: border-box;
+            text-align: center;
+            cursor: pointer;
+            transition: border-color 0.2s, background 0.2s;
+        }
+
+        .item-take-photo:hover {
+            border-color: #409eff;
+            background: #f0f7ff;
+        }
+
+        .take-photo-icon {
+            width: 36px;
+            height: 36px;
+            margin: 0 auto 8px;
+            color: #909399;
+            display: block;
+        }
+
+        .take-photo-text {
+            font-size: 14px;
+            color: #606266;
+        }
+
+        .take-photo-hint {
+            font-size: 12px;
+            color: #c0c4cc;
+            margin-top: 4px;
         }
 
         /* button：主要 / 次要 / 普通 / 图片 */
@@ -270,6 +418,8 @@
         .block-carousel .carousel-item {
             scroll-snap-align: start;
             flex-shrink: 0;
+            min-width: 200px;
+            max-width: 260px;
         }
 
         .block-carousel .carousel-item .item-button {
@@ -416,7 +566,8 @@
             color: #e65100;
         }
 
-        .media-card-highlight {
+        .media-card-highlight,
+        .icon-card-highlight {
             font-size: 13px;
             color: #e84b3a;
             font-weight: 600;
@@ -470,48 +621,318 @@
             width: 14px;
             height: 14px;
         }
+
+        /* plate_input */
+        .plate-input-cells {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+
+        .plate-input-cell {
+            width: 32px;
+            height: 40px;
+            border: 1px solid #dcdfe6;
+            border-radius: 4px;
+            background: #f8f9fa;
+            text-align: center;
+            font-size: 16px;
+            font-weight: 700;
+            line-height: 40px;
+            color: #333;
+        }
+
+        .plate-input-cell.wide {
+            width: 44px;
+        }
+
+        /* radio / checkbox */
+        .option-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .option-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            color: #333;
+        }
+
+        .option-item input {
+            flex-shrink: 0;
+        }
+
+        .item-desc {
+            font-size: 12px;
+            color: #909399;
+            margin-top: 4px;
+        }
+
+        /* switch */
+        .item-switch-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+        }
+
+        .item-switch {
+            position: relative;
+            width: 44px;
+            height: 24px;
+            flex-shrink: 0;
+        }
+
+        .item-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .item-switch-slider {
+            position: absolute;
+            inset: 0;
+            background: #dcdfe6;
+            border-radius: 24px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .item-switch-slider::before {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            left: 2px;
+            top: 2px;
+            background: #fff;
+            border-radius: 50%;
+            transition: transform 0.2s;
+        }
+
+        .item-switch input:checked + .item-switch-slider {
+            background: #409eff;
+        }
+
+        .item-switch input:checked + .item-switch-slider::before {
+            transform: translateX(20px);
+        }
+
+        /* range pickers */
+        .range-input-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .range-input-row .item-input {
+            flex: 1;
+        }
+
+        .range-sep {
+            color: #909399;
+            font-size: 13px;
+        }
+
+        /* compact_card */
+        .compact-card {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px;
+            border: 2px solid #000;
+            border-radius: 8px;
+            background: #fff;
+            box-shadow: 2px 2px 0 #000;
+            box-sizing: border-box;
+        }
+
+        .compact-card-img {
+            width: 48px;
+            height: 48px;
+            border-radius: 6px;
+            border: 2px solid #000;
+            object-fit: cover;
+            flex-shrink: 0;
+            background: #f5f5f5;
+        }
+
+        .compact-card-img-placeholder {
+            display: block;
+        }
+
+        .compact-card-title {
+            flex: 1;
+            font-size: 14px;
+            font-weight: 600;
+            color: #222;
+            min-width: 0;
+        }
+
+        /* cover_card */
+        .cover-card {
+            border: 2px solid #000;
+            border-radius: 8px;
+            overflow: hidden;
+            background: #fff;
+            box-shadow: 3px 3px 0 #000;
+            box-sizing: border-box;
+        }
+
+        .cover-card-img {
+            width: 100%;
+            height: 120px;
+            object-fit: cover;
+            display: block;
+            background: #f5f5f5;
+        }
+
+        .cover-card-img-placeholder {
+            height: 120px;
+            background: #eee;
+        }
+
+        .cover-card-body {
+            padding: 10px 12px;
+        }
+
+        .cover-card-title {
+            font-size: 15px;
+            font-weight: 700;
+            color: #222;
+            margin-bottom: 4px;
+        }
+
+        .cover-card-highlight {
+            font-size: 13px;
+            color: #e84b3a;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .cover-card-desc {
+            font-size: 12px;
+            color: #666;
+            line-height: 1.5;
+            margin-bottom: 8px;
+        }
+
+        .cover-card-btns {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        /* info */
+        .info-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 8px 0;
+            border-bottom: 1px solid #f0f0f0;
+            font-size: 14px;
+        }
+
+        .info-item:last-child {
+            border-bottom: none;
+        }
+
+        .info-label {
+            color: #909399;
+            flex-shrink: 0;
+        }
+
+        .info-value {
+            color: #333;
+            text-align: right;
+            flex: 1;
+        }
+
+        /* rich_text */
+        .rich-text-body {
+            font-size: 14px;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .rich-text-body a {
+            color: #409eff;
+        }
+
+        .rich-text-body strong {
+            font-weight: 700;
+        }
+
+        /* image gallery */
+        .image-gallery {
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            padding-bottom: 4px;
+        }
+
+        .image-gallery img {
+            width: 120px;
+            height: 90px;
+            object-fit: cover;
+            border-radius: 6px;
+            border: 1px solid #dcdfe6;
+            flex-shrink: 0;
+        }
+
+        .tag-only-row .media-card-tags {
+            margin: 0;
+        }
     </style>
 </head>
 
 <body>
 
     <div class="editor-container">
-        <h3 style="margin-top: 0;">输入 AI 吐出的 JSON</h3>
-        <textarea id="jsonInput">
-            {
-                "widget": "tool_bar",
-                "widget_id": "tool_bar",
-                "blocks": [
-                  {
-                    "block": "carousel",
-                    "items": [
-                      {
-                        "item": "button",
-                        "label": "预约停车位",
-                        "props": { "style": "normal" },
-                        "icon": "https://robot-vr-public.bj.bcebos.com/aibeeclaw/images/20260608_125219_onp2.png",
-                        "action": { "type": "open_popup", "popup_id": "parking_reserve" }
-                      },
-                      {
-                        "item": "button",
-                        "label": "预定餐厅",
-                        "props": { "style": "normal" },
-                        "icon": "https://robot-vr-public.bj.bcebos.com/aibeeclaw/images/20260608_125219_onp2.png",
-                        "action": { "type": "send_msg", "msg": "我要预定餐厅" }
-                      },
-                      {
-                        "item": "button",
-                        "label": "投诉建议",
-                        "props": { "style": "normal" },
-                        "icon": "https://robot-vr-public.bj.bcebos.com/aibeeclaw/images/20260608_125219_onp2.png",
-                        "action": { "type": "open_popup", "popup_id": "complaint_feedback" }
-                      }
-                    ]
-                  }
-                ]
-              }
-              
-        </textarea>
+        <h3 style="margin-top: 0;">AI JSON 预览</h3>
+        <div class="api-panel">
+            <div class="api-panel-title">从 Question 接口拉取 Widget</div>
+            <div class="api-row">
+                <label for="popupApiUrl">Popup URL</label>
+                <input type="text" id="popupApiUrl" value="http://127.0.0.1:8000/aibee_claw/api/popup">
+            </div>
+            <div class="api-row">
+                <label for="questionApiUrl">Question URL</label>
+                <input type="text" id="questionApiUrl" value="http://127.0.0.1:8000/aibee_claw/api/question">
+            </div>
+            <div class="api-row">
+                <label for="questionPlaceId">place_id</label>
+                <input type="text" id="questionPlaceId" value="801">
+            </div>
+            <div class="api-row">
+                <label for="questionToken">token</label>
+                <input type="text" id="questionToken" placeholder="必填，请求头 token">
+            </div>
+            <div class="api-row">
+                <label for="questionConvId">conversation_id</label>
+                <input type="text" id="questionConvId" value="493354710498488320" placeholder="可选">
+            </div>
+            <div class="api-row">
+                <label for="questionClientType">X-Client-Type</label>
+                <input type="text" id="questionClientType" value="wx_mini">
+            </div>
+            <div class="api-row">
+                <label for="questionInput">user_input</label>
+                <input type="text" id="questionInput" value="widget=list_card" placeholder="widget=list_card">
+            </div>
+            <button type="button" class="api-fetch-btn" id="questionFetchBtn">请求并预览</button>
+            <div class="api-hint">Question 需 Header：<code style="color:#ccc;">token</code>（必填）、<code style="color:#ccc;">X-Client-Type</code>；Body：<code style="color:#ccc;">user_input</code> + <code style="color:#ccc;">place_id</code>。422 表示校验失败，请看响应 msg。</div>
+        </div>
+        <div class="editor-tabs">
+            <span class="editor-tab">JSON 编辑区（左下角，可修改后实时预览）</span>
+        </div>
+        <div class="json-editor-section">
+            <textarea id="jsonInput" spellcheck="false" placeholder="点击「请求并预览」后，接口返回的 JSON 会显示在这里，可直接编辑。"></textarea>
+        </div>
     </div>
 
     <div class="preview-container">
@@ -531,12 +952,77 @@
         };
 
         const POPUP_API = {
-            base: 'http://192.168.78.25:8000/aibee_claw/api/popup',
             place_id: '841',
             user_id: '493354710498488320'
         };
 
+        const FETCH_TIMEOUT_MS = 15000;
+        const SSE_READ_TIMEOUT_MS = 30000;
+
+        const LOCAL_POPUP_FILES = {
+            complaint_feedback: 'complaint_feedback.json'
+        };
+
+        const questionApiUrl = document.getElementById('questionApiUrl');
+        const popupApiUrl = document.getElementById('popupApiUrl');
+        const questionPlaceId = document.getElementById('questionPlaceId');
+        const questionToken = document.getElementById('questionToken');
+        const questionConvId = document.getElementById('questionConvId');
+        const questionClientType = document.getElementById('questionClientType');
+        const questionInput = document.getElementById('questionInput');
+        const questionFetchBtn = document.getElementById('questionFetchBtn');
+
         let previewContext = {};
+        let renderDebounceTimer = null;
+
+        function setJsonEditorContent(raw, options = {}) {
+            const text = typeof raw === 'string' ? raw : JSON.stringify(raw, null, 2);
+            input.value = text;
+            if (options.focus) {
+                input.focus();
+                input.setSelectionRange(0, 0);
+                input.scrollTop = 0;
+            }
+            if (options.renderPreview !== false) {
+                renderFromEditor(false);
+            }
+        }
+
+        function renderFromEditor(showEmptyHint) {
+            const text = input.value.trim();
+            if (!text) {
+                if (showEmptyHint !== false) {
+                    app.innerHTML = `<div class="loading-msg" style="color:#999;">左下角粘贴 JSON 或点击「请求并预览」</div>`;
+                }
+                return;
+            }
+            try {
+                const data = JSON.parse(text);
+                renderPreviewData(data);
+            } catch (e) {
+                app.innerHTML = `<div class="error-msg">JSON 格式错误，无法解析！<br><br>${escapeHtml(e.message)}</div>`;
+            }
+        }
+
+        function getPopupApiBase() {
+            const base = (popupApiUrl && popupApiUrl.value || '').trim();
+            return base || 'http://127.0.0.1:8000/aibee_claw/api/popup';
+        }
+
+        async function fetchWithTimeout(url, options = {}, timeoutMs = FETCH_TIMEOUT_MS) {
+            const controller = new AbortController();
+            const timer = setTimeout(() => controller.abort(), timeoutMs);
+            try {
+                return await fetch(url, { ...options, signal: controller.signal });
+            } catch (e) {
+                if (e.name === 'AbortError') {
+                    throw new Error(`请求超时（${timeoutMs / 1000}s），请检查服务是否启动、地址是否正确`);
+                }
+                throw e;
+            } finally {
+                clearTimeout(timer);
+            }
+        }
 
         function escapeHtml(str) {
             return String(str)
@@ -564,16 +1050,38 @@
             return { item: 'button', label: btn.label || fallbackLabel || '按钮', ...btn };
         }
 
+        function normalizeButtonPayload(btn, fallbackLabel, defaultStyle = 'secondary') {
+            if (!btn || typeof btn !== 'object') {
+                return { label: fallbackLabel || '按钮', style: defaultStyle };
+            }
+            const payload = { ...btn };
+            const nestedProps = btn.props;
+            if (nestedProps && typeof nestedProps === 'object') {
+                if (payload.style === undefined && nestedProps.style) payload.style = nestedProps.style;
+                if (payload.width === undefined && nestedProps.width !== undefined) payload.width = nestedProps.width;
+                if (!payload.icon && nestedProps.icon) payload.icon = nestedProps.icon;
+                if (!payload.image && nestedProps.image) payload.image = nestedProps.image;
+            }
+            delete payload.item;
+            delete payload.props;
+            if (!payload.label) payload.label = fallbackLabel || '按钮';
+            if (!payload.style) payload.style = defaultStyle;
+            return payload;
+        }
+
         function getButtonStyle(item, blockType) {
             const props = getButtonProps(item);
-            const styleKey = props.style;
+            const styleKey = item.style || props.style;
             if (styleKey && BUTTON_STYLES[styleKey]) return BUTTON_STYLES[styleKey];
             if (blockType === 'submit') return 'primary';
             return 'normal';
         }
 
-        function getButtonWidthStyle(props, blockType) {
-            const width = props.width;
+        function getButtonWidthStyle(item, blockType) {
+            const props = getButtonProps(item);
+            const width = item.width !== undefined && item.width !== null && item.width !== ''
+                ? item.width
+                : props.width;
             if (width === undefined || width === null || width === '') {
                 if (blockType === 'grid' || blockType === 'submit') return 'width:100%;';
                 return '';
@@ -596,27 +1104,260 @@
 
         function getButtonAttrs(item, isSubmit) {
             const attrs = [];
-            const actionType = item.action && item.action.type;
+            const action = item.action;
+            const actionType = action && action.type;
             if (isSubmit && actionType !== 'open_popup' && actionType !== 'jump') attrs.push('data-action="close"');
             if (actionType) {
                 attrs.push(`data-action-type="${escapeHtml(actionType)}"`);
-                if (item.action.popup_id) {
-                    attrs.push(`data-popup-id="${escapeHtml(item.action.popup_id)}"`);
+                if (action.popup_id) attrs.push(`data-popup-id="${escapeHtml(action.popup_id)}"`);
+                if (action.msg) attrs.push(`data-action-msg="${escapeHtml(action.msg)}"`);
+                if (action.url) attrs.push(`data-action-url="${escapeHtml(action.url)}"`);
+                if (action.tel) attrs.push(`data-action-tel="${escapeHtml(action.tel)}"`);
+                if (action.text_template) attrs.push(`data-action-template="${escapeHtml(action.text_template)}"`);
+                if (action.scope && Array.isArray(action.scope)) {
+                    attrs.push(`data-action-scope="${escapeHtml(action.scope.join(','))}"`);
                 }
-                if (item.action.msg) {
-                    attrs.push(`data-action-msg="${escapeHtml(item.action.msg)}"`);
+                if (action.payload) {
+                    try {
+                        attrs.push(`data-action-payload="${escapeHtml(JSON.stringify(action.payload))}"`);
+                    } catch (e) { /* ignore */ }
                 }
-                if (item.action.url) {
-                    attrs.push(`data-action-url="${escapeHtml(item.action.url)}"`);
+                if (actionType === 'nav' && action) {
+                    try {
+                        attrs.push(`data-action-nav="${escapeHtml(JSON.stringify(action))}"`);
+                    } catch (e) { /* ignore */ }
                 }
             }
             return attrs.length ? ' ' + attrs.join(' ') : '';
+        }
+
+        function getItemFieldProp(item, key, fallback = '') {
+            if (item[key] !== undefined && item[key] !== null && item[key] !== '') {
+                return item[key];
+            }
+            const props = item.props || {};
+            if (props[key] !== undefined && props[key] !== null && props[key] !== '') {
+                return props[key];
+            }
+            return fallback;
+        }
+
+        function renderTakePhotoIcon() {
+            return `<svg class="take-photo-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">` +
+                `<path d="M4 7h3l2-2h6l2 2h3a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2z"/>` +
+                `<circle cx="12" cy="13" r="3.5"/>` +
+                `</svg>`;
         }
 
         function getBlockWrapper(blockType) {
             if (blockType === 'carousel') return 'carousel-item';
             if (blockType === 'grid') return 'grid-item';
             return 'btn-row';
+        }
+
+        function normalizeOptions(options) {
+            if (!Array.isArray(options)) return [];
+            return options.map((opt, i) => {
+                if (typeof opt === 'string') return { label: opt, value: opt };
+                if (opt && typeof opt === 'object') {
+                    return {
+                        label: opt.label || opt.value || `选项${i + 1}`,
+                        value: opt.value || opt.label || String(i)
+                    };
+                }
+                return { label: `选项${i + 1}`, value: String(i) };
+            });
+        }
+
+        function renderItemDesc(item) {
+            const desc = getItemFieldProp(item, 'desc', '');
+            return desc ? `<div class="item-desc">${escapeHtml(desc)}</div>` : '';
+        }
+
+        function renderSimpleMarkdown(md) {
+            if (!md) return '';
+            let html = escapeHtml(String(md));
+            html = html.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+            html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>');
+            html = html.replace(/\n/g, '<br>');
+            return html;
+        }
+
+        function renderPlateInput(item) {
+            const def = String(getItemFieldProp(item, 'default', '京A'));
+            const chars = def.split('').concat(['', '', '', '', '', '']).slice(0, 8);
+            let html = `<div class="plate-input-cells">`;
+            chars.forEach((ch, i) => {
+                const wide = i === 1;
+                html += `<div class="plate-input-cell${wide ? ' wide' : ''}">${escapeHtml(ch)}</div>`;
+            });
+            html += `</div>`;
+            html += renderItemDesc(item);
+            return html;
+        }
+
+        function renderOptionsGroup(item, inputType) {
+            const options = normalizeOptions(getItemFieldProp(item, 'options', []));
+            const name = escapeHtml(getItemFieldProp(item, 'key', 'opt'));
+            let html = `<div class="option-group">`;
+            options.forEach((opt, i) => {
+                const id = `${name}_${i}`;
+                const checked = i === 0 && inputType === 'radio' ? ' checked' : '';
+                html += `<label class="option-item" for="${id}">`;
+                html += `<input type="${inputType}" id="${id}" name="${name}" value="${escapeHtml(opt.value)}"${checked}>`;
+                html += `<span>${escapeHtml(opt.label)}</span>`;
+                html += `</label>`;
+            });
+            html += `</div>`;
+            html += renderItemDesc(item);
+            return html;
+        }
+
+        function renderSwitch(item) {
+            const def = getItemFieldProp(item, 'default', false);
+            const checked = def === true || def === 'true' || def === 1 || def === '1' ? ' checked' : '';
+            let html = `<div class="item-switch-row">`;
+            html += `<span class="item-label" style="margin:0;">${escapeHtml(item.label || '')} ${item.required ? '*' : ''}</span>`;
+            html += `<label class="item-switch">`;
+            html += `<input type="checkbox"${checked}>`;
+            html += `<span class="item-switch-slider"></span>`;
+            html += `</label></div>`;
+            html += renderItemDesc(item);
+            return html;
+        }
+
+        function renderDateTimeInput(type, item) {
+            const placeholder = escapeHtml(getItemFieldProp(item, 'desc', ''));
+            const def = escapeHtml(getItemFieldProp(item, 'default', ''));
+            const min = escapeHtml(getItemFieldProp(item, 'min', ''));
+            const max = escapeHtml(getItemFieldProp(item, 'max', ''));
+            let attrs = `class="item-input"`;
+            if (placeholder) attrs += ` placeholder="${placeholder}"`;
+            if (def) attrs += ` value="${def}"`;
+            if (min) attrs += ` min="${min}"`;
+            if (max) attrs += ` max="${max}"`;
+            let html = `<input type="${type}" ${attrs}>`;
+            html += renderItemDesc(item);
+            return html;
+        }
+
+        function renderRangePicker(type, item) {
+            const def = getItemFieldProp(item, 'default', []);
+            const start = Array.isArray(def) ? def[0] || '' : '';
+            const end = Array.isArray(def) ? def[1] || '' : '';
+            const min = escapeHtml(getItemFieldProp(item, 'min', ''));
+            const max = escapeHtml(getItemFieldProp(item, 'max', ''));
+            let html = `<div class="range-input-row">`;
+            html += `<input type="${type}" class="item-input" value="${escapeHtml(start)}"${min ? ` min="${min}"` : ''}${max ? ` max="${max}"` : ''}>`;
+            html += `<span class="range-sep">至</span>`;
+            html += `<input type="${type}" class="item-input" value="${escapeHtml(end)}"${min ? ` min="${min}"` : ''}${max ? ` max="${max}"` : ''}>`;
+            html += `</div>`;
+            html += renderItemDesc(item);
+            return html;
+        }
+
+        function renderPhoneInput(item) {
+            const def = escapeHtml(getItemFieldProp(item, 'default', ''));
+            const placeholder = escapeHtml(getItemFieldProp(item, 'desc', '请输入手机号'));
+            let html = `<input type="tel" class="item-input" value="${def}" placeholder="${placeholder}" maxlength="11">`;
+            const smsVerify = getItemFieldProp(item, 'sms_verify', false);
+            if (smsVerify === true || smsVerify === 'true' || smsVerify === 1) {
+                html += `<input type="text" class="item-input" style="margin-top:8px;" placeholder="请输入短信验证码" maxlength="6">`;
+            }
+            html += renderItemDesc(item);
+            return html;
+        }
+
+        function renderTakePhoto(item) {
+            const desc = escapeHtml(getItemFieldProp(item, 'desc', '点击拍照或上传图片'));
+            const max = parseInt(getItemFieldProp(item, 'max', 1), 10) || 1;
+            const mediaType = getItemFieldProp(item, 'media_type', 'image');
+            const typeHint = mediaType === 'video' ? '视频' : mediaType === 'both' ? '图片或视频' : '图片';
+            let html = `<div class="item-take-photo" role="button" tabindex="0">`;
+            html += renderTakePhotoIcon();
+            html += `<div class="take-photo-text">${desc}</div>`;
+            html += `<div class="take-photo-hint">${escapeHtml(typeHint)}${max > 1 ? ` · 最多 ${max} 张` : ''}</div>`;
+            html += `</div>`;
+            return html;
+        }
+
+        function renderCompactCard(item) {
+            const image = getItemProp(item, 'image');
+            const title = getItemProp(item, 'title');
+            const button = item.button || (item.props && item.props.button);
+            const cardAction = item.action;
+            const wrapperActionAttrs = cardAction ? getButtonAttrs({ action: cardAction }, false) : '';
+            let html = `<div class="compact-card item-row"${wrapperActionAttrs}>`;
+            html += image
+                ? `<img class="compact-card-img" src="${escapeHtml(image)}" alt="">`
+                : `<div class="compact-card-img compact-card-img-placeholder"></div>`;
+            html += `<div class="compact-card-title">${escapeHtml(title || '')}</div>`;
+            if (button) {
+                html += renderButton(normalizeButtonPayload(button, '查看'), null, false);
+            }
+            html += `</div>`;
+            return html;
+        }
+
+        function renderCoverCard(item) {
+            const image = getItemProp(item, 'image');
+            const title = getItemProp(item, 'title');
+            const highlight = getItemProp(item, 'highlight');
+            const desc = getItemProp(item, 'desc');
+            const buttons = getItemProp(item, 'buttons') || [];
+            const cardAction = item.action;
+            const wrapperActionAttrs = cardAction ? getButtonAttrs({ action: cardAction }, false) : '';
+            let html = `<div class="cover-card item-row"${wrapperActionAttrs}>`;
+            html += image
+                ? `<img class="cover-card-img" src="${escapeHtml(image)}" alt="">`
+                : `<div class="cover-card-img cover-card-img-placeholder"></div>`;
+            html += `<div class="cover-card-body">`;
+            if (title) html += `<div class="cover-card-title">${escapeHtml(title)}</div>`;
+            if (highlight) html += `<div class="cover-card-highlight">${escapeHtml(highlight)}</div>`;
+            if (desc) html += `<div class="cover-card-desc">${escapeHtml(desc)}</div>`;
+            if (Array.isArray(buttons) && buttons.length) {
+                html += `<div class="cover-card-btns">`;
+                buttons.forEach(btn => {
+                    html += renderButton(normalizeButtonPayload(btn, '查看'), null, false);
+                });
+                html += `</div>`;
+            }
+            html += `</div></div>`;
+            return html;
+        }
+
+        function renderInfo(item) {
+            const value = escapeHtml(getItemFieldProp(item, 'value', ''));
+            return `<div class="info-item item-row"><span class="info-label">${escapeHtml(item.label || '')}</span><span class="info-value">${value}</span></div>`;
+        }
+
+        function renderRichText(item) {
+            const content = getItemFieldProp(item, 'content', '');
+            return `<div class="rich-text-body item-row">${renderSimpleMarkdown(content)}</div>`;
+        }
+
+        function renderTagItem(item) {
+            const tags = getItemFieldProp(item, 'tags', []);
+            if (!Array.isArray(tags) || !tags.length) return '';
+            let html = `<div class="item-row tag-only-row"><div class="media-card-tags">`;
+            tags.forEach(tag => {
+                html += `<span class="media-card-tag">${escapeHtml(tag)}</span>`;
+            });
+            html += `</div></div>`;
+            return html;
+        }
+
+        function renderImageGallery(item) {
+            const images = getItemFieldProp(item, 'images', []);
+            if (!Array.isArray(images) || !images.length) {
+                return `<div class="item-row"><div class="image-gallery"><div class="item-input" style="height:90px;background:#eee;"></div></div></div>`;
+            }
+            let html = `<div class="item-row"><div class="image-gallery">`;
+            images.forEach(url => {
+                html += `<img src="${escapeHtml(url)}" alt="">`;
+            });
+            html += `</div></div>`;
+            return html;
         }
 
         function renderButtonIcon(item) {
@@ -630,7 +1371,7 @@
         function renderButton(item, blockType, isSubmit) {
             const props = getButtonProps(item);
             const style = getButtonStyle(item, blockType);
-            const widthStyle = getButtonWidthStyle(props, blockType);
+            const widthStyle = getButtonWidthStyle(item, blockType);
             const label = escapeHtml(item.label || '按钮');
             const actionAttrs = getButtonAttrs(item, isSubmit);
 
@@ -681,7 +1422,7 @@
             if (Array.isArray(buttons) && buttons.length) {
                 html += `<div class="media-card-btns">`;
                 buttons.forEach(btn => {
-                    html += renderButton(normalizeButtonItem(btn, '查看'), null, false);
+                    html += renderButton(normalizeButtonPayload(btn, '查看'), null, false);
                 });
                 html += `</div>`;
             }
@@ -694,20 +1435,31 @@
             const label = getItemProp(item, 'label');
             const highlight = getItemProp(item, 'highlight');
             const props = getButtonProps(item);
-            const action = item.action || props.action;
-            const actionAttrs = action ? getButtonAttrs({ action }, false) : '';
+            const button = item.button || props.button;
+            const cardAction = item.action;
+            let wrapperActionAttrs = '';
+            if (button && cardAction) {
+                wrapperActionAttrs = getButtonAttrs({ action: cardAction }, false);
+            } else if (!button && !highlight && cardAction) {
+                wrapperActionAttrs = getButtonAttrs({ action: cardAction }, false);
+            }
 
-            let html = `<div class="icon-card item-row">`;
+            let html = `<div class="icon-card item-row"${wrapperActionAttrs}>`;
             html += icon
                 ? `<img class="icon-card-icon" src="${escapeHtml(icon)}" alt="">`
                 : `<div class="icon-card-icon icon-card-icon-placeholder"></div>`;
             html += `<div class="icon-card-body">`;
             if (label) html += `<div class="icon-card-label">${escapeHtml(label)}</div>`;
+            if (highlight && button) {
+                html += `<div class="icon-card-highlight">${escapeHtml(highlight)}</div>`;
+            }
             html += `</div>`;
-            if (props.button) {
-                html += `<div class="icon-card-btn-wrap">${renderButton(normalizeButtonItem(props.button, 'GO'), null, false)}</div>`;
+            if (button) {
+                html += `<div class="icon-card-btn-wrap">${renderButton(normalizeButtonPayload(button, '抢'), null, false)}</div>`;
             } else if (highlight) {
-                html += `<div class="icon-card-action"${actionAttrs}>${escapeHtml(highlight)}</div>`;
+                const legacyAction = cardAction || props.action;
+                const legacyActionAttrs = legacyAction ? getButtonAttrs({ action: legacyAction }, false) : '';
+                html += `<div class="icon-card-action"${legacyActionAttrs}>${escapeHtml(highlight)}</div>`;
             }
             html += `</div>`;
             return html;
@@ -717,25 +1469,72 @@
             if (item.item === 'button') return renderButtonRow(item, null);
             if (item.item === 'media_card') return renderMediaCard(item);
             if (item.item === 'icon_card') return renderIconCard(item);
+            if (item.item === 'compact_card') return renderCompactCard(item);
+            if (item.item === 'cover_card') return renderCoverCard(item);
+            if (item.item === 'info') return renderInfo(item);
+            if (item.item === 'rich_text') return renderRichText(item);
+            if (item.item === 'tag') return renderTagItem(item);
+            if (item.item === 'image') return renderImageGallery(item);
+
+            if (item.item === 'switch') {
+                return `<div class="item-row">${renderSwitch(item)}</div>`;
+            }
 
             let html = `<div class="item-row">`;
-            if (item.label && item.item !== 'button') {
+            if (item.label) {
                 html += `<span class="item-label">${escapeHtml(item.label)} ${item.required ? '*' : ''}</span>`;
             }
 
             switch (item.item) {
                 case 'plate_input':
+                    html += renderPlateInput(item);
+                    break;
                 case 'input': {
-                    const def = (item.props && item.props.default) ? escapeHtml(item.props.default) : '';
-                    const placeholder = (item.props && item.props.desc) ? escapeHtml(item.props.desc) : '';
-                    html += `<input type="text" class="item-input" value="${def}" placeholder="${placeholder}">`;
+                    const def = escapeHtml(getItemFieldProp(item, 'default', ''));
+                    const placeholder = escapeHtml(getItemFieldProp(item, 'desc', ''));
+                    const maxLength = getItemFieldProp(item, 'max_length', '');
+                    const maxAttr = maxLength ? ` maxlength="${parseInt(maxLength, 10)}"` : '';
+                    html += `<input type="text" class="item-input" value="${def}" placeholder="${placeholder}"${maxAttr}>`;
+                    html += renderItemDesc(item);
                     break;
                 }
-                case 'datetime_picker': {
-                    const dtDesc = (item.props && item.props.desc) ? escapeHtml(item.props.desc) : '请选择时间';
-                    html += `<input type="datetime-local" class="item-input" title="${dtDesc}">`;
+                case 'datetime_picker':
+                    html += renderDateTimeInput('datetime-local', item);
+                    break;
+                case 'date_picker':
+                    html += renderDateTimeInput('date', item);
+                    break;
+                case 'time_picker':
+                    html += renderDateTimeInput('time', item);
+                    break;
+                case 'date_range_picker':
+                    html += renderRangePicker('date', item);
+                    break;
+                case 'time_range_picker':
+                    html += renderRangePicker('time', item);
+                    break;
+                case 'textarea': {
+                    const placeholder = escapeHtml(getItemFieldProp(item, 'desc', '请输入'));
+                    const rows = parseInt(getItemFieldProp(item, 'rows', 4), 10) || 4;
+                    const def = escapeHtml(getItemFieldProp(item, 'default', ''));
+                    const maxLength = getItemFieldProp(item, 'max_length', '');
+                    const maxAttr = maxLength ? ` maxlength="${parseInt(maxLength, 10)}"` : '';
+                    html += `<textarea class="item-input item-textarea" rows="${rows}" placeholder="${placeholder}"${maxAttr}>${def}</textarea>`;
+                    html += renderItemDesc(item);
                     break;
                 }
+                case 'radio_group':
+                    html += renderOptionsGroup(item, 'radio');
+                    break;
+                case 'checkbox_group':
+                    html += renderOptionsGroup(item, 'checkbox');
+                    break;
+                case 'take_photo':
+                    html += renderTakePhoto(item);
+                    break;
+                case 'phone_input':
+                    html += renderPhoneInput(item);
+                    break;
                 default:
                     html += `<div class="item-input" style="background:#eee;">[未知组件: ${escapeHtml(item.item)}]</div>`;
             }
@@ -747,7 +1546,11 @@
             if (!items || !Array.isArray(items)) return '';
             return items.map(item => {
                 if (item.item === 'button') return renderButtonRow(item, blockType);
-                return renderFormItem(item);
+                const inner = renderFormItem(item);
+                if (blockType === 'carousel') {
+                    return `<div class="carousel-item">${inner}</div>`;
+                }
+                return inner;
             }).join('');
         }
 
@@ -819,53 +1622,246 @@
             return html;
         }
 
-        function normalizePopupData(raw) {
+        function normalizeWidgetData(raw) {
             if (!raw || typeof raw !== 'object') return raw;
             if (Array.isArray(raw.blocks)) return raw;
-            if (raw.data && Array.isArray(raw.data.blocks)) return raw.data;
+            if (raw.data && Array.isArray(raw.data.blocks)) {
+                return {
+                    widget: raw.widget || raw.data.widget,
+                    widget_id: raw.widget_id || raw.data.widget_id,
+                    blocks: raw.data.blocks,
+                    place_id: raw.place_id || raw.data.place_id,
+                    user_id: raw.user_id || raw.data.user_id
+                };
+            }
             if (raw.data && typeof raw.data === 'object') return raw.data;
-            if (raw.result && Array.isArray(raw.result.blocks)) return raw.result;
+            if (raw.result && Array.isArray(raw.result.blocks)) {
+                return {
+                    widget: raw.widget,
+                    widget_id: raw.widget_id,
+                    blocks: raw.result.blocks,
+                    place_id: raw.place_id,
+                    user_id: raw.user_id
+                };
+            }
             return raw;
+        }
+
+        function normalizePopupData(raw) {
+            return normalizeWidgetData(raw);
+        }
+
+        function extractJsonFromPayload(text) {
+            if (!text) return null;
+            const trimmed = String(text).trim();
+            const fenceMatch = trimmed.match(/```(?:json)?\s*([\s\S]*?)```/);
+            const jsonStr = fenceMatch ? fenceMatch[1].trim() : trimmed;
+            try {
+                return JSON.parse(jsonStr);
+            } catch (e) {
+                return null;
+            }
+        }
+
+        function parseQuestionResponseText(text) {
+            if (!text) return null;
+
+            const sseBlocks = text.split(/\r?\n\r?\n+/);
+            for (const block of sseBlocks) {
+                let eventType = '';
+                const dataLines = [];
+                block.split(/\r?\n/).forEach(line => {
+                    if (line.startsWith('event:')) eventType = line.slice(6).trim();
+                    else if (line.startsWith('data:')) dataLines.push(line.slice(5).trim());
+                });
+                const payload = dataLines.join('\n');
+                if (eventType === 'widget_json' || payload.includes('"widget"')) {
+                    const parsed = extractJsonFromPayload(payload);
+                    if (parsed) return parsed;
+                }
+            }
+
+            const lines = text.split(/\r?\n/);
+            for (const line of lines) {
+                if (!line.includes('widget_json')) continue;
+                const tabParts = line.split('\t');
+                for (let i = tabParts.length - 1; i >= 0; i--) {
+                    const parsed = extractJsonFromPayload(tabParts[i]);
+                    if (parsed) return parsed;
+                }
+            }
+
+            const inlineMatch = text.match(/widget_json[\t\s]+([\s\S]+)/);
+            if (inlineMatch) {
+                const parsed = extractJsonFromPayload(inlineMatch[1]);
+                if (parsed) return parsed;
+            }
+
+            try {
+                const json = JSON.parse(text);
+                if (json && (json.widget || json.data || json.blocks)) return json;
+            } catch (e) { /* ignore */ }
+
+            return extractJsonFromPayload(text);
+        }
+
+        async function readQuestionStream(response, timeoutMs = SSE_READ_TIMEOUT_MS) {
+            const deadline = Date.now() + timeoutMs;
+
+            if (!response.body) {
+                return parseQuestionResponseText(await response.text());
+            }
+
+            const reader = response.body.getReader();
+            const decoder = new TextDecoder();
+            let buffer = '';
+
+            while (true) {
+                if (Date.now() > deadline) {
+                    throw new Error('读取 SSE 超时，未收到 widget_json');
+                }
+
+                const { done, value } = await reader.read();
+                if (done) break;
+                buffer += decoder.decode(value, { stream: true });
+                const parsed = parseQuestionResponseText(buffer);
+                if (parsed) {
+                    try { await reader.cancel(); } catch (e) { /* ignore */ }
+                    return parsed;
+                }
+            }
+            return parseQuestionResponseText(buffer);
+        }
+
+        async function readHttpErrorMessage(res) {
+            let errMsg = `HTTP ${res.status}`;
+            try {
+                const errBody = await res.json();
+                if (errBody && errBody.msg) errMsg += `：${errBody.msg}`;
+                else if (errBody && errBody.message) errMsg += `：${errBody.message}`;
+            } catch (e) {
+                try {
+                    const text = await res.text();
+                    if (text) errMsg += `：${text.slice(0, 200)}`;
+                } catch (e2) { /* ignore */ }
+            }
+            return errMsg;
+        }
+
+        async function fetchQuestionWidget() {
+            const url = (questionApiUrl.value || '').trim();
+            const userInput = (questionInput.value || '').trim();
+            const placeIdRaw = (questionPlaceId.value || '').trim();
+            const token = (questionToken.value || '').trim();
+            const conversationId = (questionConvId.value || '').trim();
+            const clientType = (questionClientType.value || '').trim() || 'wx_mini';
+
+            if (!url) throw new Error('请填写 Question URL');
+            if (!userInput) throw new Error('请填写 user_input');
+            if (!placeIdRaw) throw new Error('请填写 place_id');
+            if (!token) throw new Error('请填写 token（请求头必填）');
+
+            const placeId = Number(placeIdRaw);
+            if (!Number.isInteger(placeId) || placeId < 0 || placeId > 9999) {
+                throw new Error('place_id 须为 0–9999 的整数');
+            }
+
+            questionFetchBtn.disabled = true;
+            app.innerHTML = `<div class="loading-msg">请求中…<br><span style="font-size:12px;color:#c0c4cc;">${escapeHtml(url)}</span></div>`;
+
+            try {
+                const body = {
+                    user_input: userInput,
+                    place_id: placeId
+                };
+                if (conversationId) body.conversation_id = conversationId;
+
+                const res = await fetchWithTimeout(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'text/event-stream, application/json',
+                        'token': token,
+                        'X-Client-Type': clientType
+                    },
+                    body: JSON.stringify(body)
+                }, FETCH_TIMEOUT_MS);
+
+                if (!res.ok) {
+                    throw new Error(await readHttpErrorMessage(res));
+                }
+
+                const rawWidget = await readQuestionStream(res);
+                if (!rawWidget) throw new Error('响应中未找到 widget_json 或有效 JSON');
+
+                const data = normalizeWidgetData(rawWidget);
+                if (!data || !Array.isArray(data.blocks)) {
+                    throw new Error('解析结果无效，缺少 blocks');
+                }
+
+                previewContext.place_id = placeId;
+                if (conversationId) previewContext.user_id = conversationId;
+
+                try {
+                    localStorage.setItem('question_token', token);
+                } catch (e) { /* ignore */ }
+
+                const jsonText = JSON.stringify(rawWidget, null, 2);
+                setJsonEditorContent(jsonText, { focus: true });
+            } finally {
+                questionFetchBtn.disabled = false;
+            }
         }
 
         function buildPopupUrl(popupId) {
             const placeId = previewContext.place_id || POPUP_API.place_id;
             const userId = previewContext.user_id || POPUP_API.user_id;
-            return `${POPUP_API.base}/${encodeURIComponent(popupId)}?place_id=${encodeURIComponent(placeId)}&user_id=${encodeURIComponent(userId)}`;
+            return `${getPopupApiBase()}/${encodeURIComponent(popupId)}?place_id=${encodeURIComponent(placeId)}&user_id=${encodeURIComponent(userId)}`;
+        }
+
+        async function loadLocalPopupRaw(popupId) {
+            const file = LOCAL_POPUP_FILES[popupId];
+            if (!file) return null;
+            const res = await fetchWithTimeout(file, {}, 5000);
+            if (!res.ok) return null;
+            return res.json();
         }
 
         async function handleOpenPopup(popupId) {
             const url = buildPopupUrl(popupId);
             app.innerHTML = `<div class="loading-msg">加载弹窗中…<br><span style="font-size:12px;color:#c0c4cc;">${escapeHtml(url)}</span></div>`;
             try {
-                const res = await fetch(url);
+                const res = await fetchWithTimeout(url);
                 if (!res.ok) throw new Error(`HTTP ${res.status}`);
                 const raw = await res.json();
-                const data = normalizePopupData(raw);
-                if (!data || !Array.isArray(data.blocks)) {
-                    throw new Error('响应格式无效，缺少 blocks');
-                }
-                renderPreviewData(data);
+                setJsonEditorContent(raw, { focus: true });
             } catch (e) {
-                app.innerHTML = `<div class="error-msg">弹窗请求失败<br><br>${escapeHtml(e.message)}<br><br><span style="font-size:12px;">${escapeHtml(url)}</span></div>`;
+                const localRaw = await loadLocalPopupRaw(popupId);
+                if (localRaw) {
+                    setJsonEditorContent(localRaw, { focus: true });
+                    return;
+                }
+                app.innerHTML = `<div class="error-msg">弹窗请求失败<br><br>${escapeHtml(e.message)}<br><br><span style="font-size:12px;">${escapeHtml(url)}</span><br><br><span style="font-size:12px;color:#909399;">可改用 127.0.0.1 或检查终端用 curl.exe -m 5</span></div>`;
             }
         }
 
         function renderPreviewData(data) {
+            const normalized = normalizeWidgetData(data);
             previewContext = {
-                place_id: data.place_id || POPUP_API.place_id,
-                user_id: data.user_id || POPUP_API.user_id
+                place_id: normalized.place_id || previewContext.place_id || POPUP_API.place_id,
+                user_id: normalized.user_id || previewContext.user_id || POPUP_API.user_id
             };
 
             let html = '';
-            const hasHeader = data.blocks && data.blocks.some(b => b.block === 'header');
+            const hasHeader = normalized.blocks && normalized.blocks.some(b => b.block === 'header');
+            const widgetType = normalized.widget;
 
-            if (data.widget && data.widget_id && !hasHeader) {
-                html += `<div class="widget-title">${escapeHtml(data.widget_id)}</div>`;
+            if (widgetType && normalized.widget_id && !hasHeader) {
+                html += `<div class="widget-title">${escapeHtml(normalized.widget_id)}</div>`;
             }
 
-            if (data.blocks && Array.isArray(data.blocks)) {
-                data.blocks.forEach(block => {
+            if (normalized.blocks && Array.isArray(normalized.blocks)) {
+                normalized.blocks.forEach(block => {
                     html += renderBlock(block);
                 });
             }
@@ -874,12 +1870,8 @@
         }
 
         function render() {
-            try {
-                const data = JSON.parse(input.value);
-                renderPreviewData(data);
-            } catch (e) {
-                app.innerHTML = `<div class="error-msg">JSON 格式错误，无法解析！<br><br>${escapeHtml(e.message)}</div>`;
-            }
+            clearTimeout(renderDebounceTimer);
+            renderDebounceTimer = setTimeout(() => renderFromEditor(true), 200);
         }
 
         function closePopup() {
@@ -912,15 +1904,51 @@
                 return;
             }
 
-            const msgBtn = e.target.closest('.item-button[data-action-type="send_msg"]');
-            if (msgBtn && msgBtn.dataset.actionMsg) {
-                console.log('[send_msg]', msgBtn.dataset.actionMsg);
+            const msgBtn = e.target.closest('[data-action-type="send_msg"]');
+            if (msgBtn) {
+                const detail = {
+                    msg: msgBtn.dataset.actionMsg || '',
+                    template: msgBtn.dataset.actionTemplate || '',
+                    scope: msgBtn.dataset.actionScope || '',
+                    payload: msgBtn.dataset.actionPayload || ''
+                };
+                console.log('[send_msg]', detail);
+                return;
+            }
+
+            const callBtn = e.target.closest('[data-action-type="call"]');
+            if (callBtn && callBtn.dataset.actionTel) {
+                console.log('[call]', callBtn.dataset.actionTel);
+                return;
+            }
+
+            const navBtn = e.target.closest('[data-action-type="nav"]');
+            if (navBtn && navBtn.dataset.actionNav) {
+                try {
+                    console.log('[nav]', JSON.parse(navBtn.dataset.actionNav));
+                } catch (err) {
+                    console.log('[nav]', navBtn.dataset.actionNav);
+                }
+                return;
             }
         }
 
         app.addEventListener('click', handleAppClick);
         input.addEventListener('input', render);
-        render();
+        questionFetchBtn.addEventListener('click', () => {
+            fetchQuestionWidget().catch(e => {
+                app.innerHTML = `<div class="error-msg">Question 请求失败<br><br>${escapeHtml(e.message)}</div>`;
+                questionFetchBtn.disabled = false;
+            });
+        });
+        questionInput.addEventListener('keydown', e => {
+            if (e.key === 'Enter') questionFetchBtn.click();
+        });
+        try {
+            const savedToken = localStorage.getItem('question_token');
+            if (savedToken && questionToken) questionToken.value = savedToken;
+        } catch (e) { /* ignore */ }
+        renderFromEditor(true);
     </script>
 </body>
 
